@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/androidw/electronics.android-web.com
+    - /bin/cp -R * $DEPLOYPATH
+    - echo "Deploy completado"
