@@ -1,6 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/androidw/electronics.android-web.com
-    - /bin/cp -R * $DEPLOYPATH
-    - echo "Deploy completado"
+    - echo "✅ Deployment completado - Los archivos ya están en su lugar"
+    - ls -la /home/androidw/electronics.android-web.com/
