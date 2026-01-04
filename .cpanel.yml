@@ -1,5 +1,6 @@
 ---
 deployment:
   tasks:
-    - echo "✅ Deployment completado - Los archivos ya están en su lugar"
-    - ls -la /home/androidw/electronics.android-web.com/
+    - cd /home/androidw/electronics.android-web.com
+    - git pull origin main
+    - echo "✅ Deployment completado"
