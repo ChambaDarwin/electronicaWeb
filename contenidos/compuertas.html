@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compuertas Lógicas</title>
+    <link rel="icon" type="image/x-icon" href="../img/imagee.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/style_compuertas.css">
+  </head>
+  <body>
+    <header>
+      <h1>Compuertas Lógicas</h1>
+    </header>
+
+    <div class="container">
+      <!-- Introducción -->
+      <div class="section">
+        <p>
+          La lógica de las compuertas lógicas es la misma que se utiliza en los
+          operadores lógicos de programación. Recordemos que los operadores
+          lógicos más comunes son <strong>&&</strong>, <strong>||</strong> y
+          <strong>!</strong> (NOT), utilizados en lenguajes como Kotlin y Java.
+        </p>
+
+        <p>
+          El operador lógico <strong>&&</strong> (AND) nos indica que ambas
+          condiciones deben ser verdaderas para que el resultado sea verdadero
+          (true).
+        </p>
+        <pre><code>val result = 5 > 4 && 7 > 6  // Resultado: true</code></pre>
+
+        <p>
+          El operador lógico <strong>||</strong> (OR) nos indica que solo una
+          condición debe ser verdadera para que el resultado sea verdadero.
+        </p>
+        <pre><code>val result = 5 > 7 || 4 > 2  // Resultado: true</code></pre>
+
+        <p>
+          El operador lógico <strong>!</strong> (NOT) invierte el estado: cambia
+          verdadero a falso y viceversa.
+        </p>
+        <pre><code>val result = !true  // Resultado: false</code></pre>
+      </div>
+
+      <!-- ¿Qué son? -->
+      <div class="section">
+        <h2>¿Qué son las compuertas lógicas?</h2>
+        <p>
+          Las compuertas lógicas son circuitos electrónicos básicos que se
+          utilizan para procesar información binaria, es decir, valores 0 y 1
+          (falso y verdadero). Su función principal es realizar operaciones
+          lógicas sobre una o más entradas para producir una salida según reglas
+          específicas.
+        </p>
+
+        <p><strong>Características principales:</strong></p>
+        <ul>
+          <li>Trabajan con dos estados: 0 → falso/apagado | 1 → verdadero/encendido</li>
+          <li>Reciben una o más entradas y generan una salida</li>
+        </ul>
+      </div>
+
+      <!-- Compuerta AND -->
+      <div class="section">
+        <h2>Compuerta AND</h2>
+        <p>
+          El circuito integrado <strong>7408</strong> implementa la compuerta
+          lógica AND (Y). Es una compuerta lógica básica que produce una salida
+          verdadera (1) solo cuando todas sus entradas son verdaderas.
+        </p>
+        <p>
+          <strong>¿Cómo funciona la compuerta AND?</strong> Si todas las entradas
+          son 1, la salida es 1. Si alguna entrada es 0, la salida es 0.
+        </p>
+
+        <div class="gate-card">
+          <div class="gate-title">AND</div>
+          <div class="gate-svg">
+            <svg width="200" height="120" viewBox="0 0 200 120">
+              <line
+                x1="20"
+                y1="35"
+                x2="60"
+                y2="35"
+                stroke="#4ade80"
+                stroke-width="3"
+              />
+              <line
+                x1="20"
+                y1="85"
+                x2="60"
+                y2="85"
+                stroke="#4ade80"
+                stroke-width="3"
+              />
+              <path
+                d="M 60 20 L 60 100 L 100 100 Q 140 100 140 60 Q 140 20 100 20 Z"
+                fill="rgba(74, 222, 128, 0.2)"
+                stroke="#4ade80"
+                stroke-width="3"
+              />
+              <line
+                x1="140"
+                y1="60"
+                x2="180"
+                y2="60"
+                stroke="#4ade80"
+                stroke-width="3"
+              />
+              <text x="10" y="40" font-size="14">A</text>
+              <text x="10" y="90" font-size="14">B</text>
+              <text x="185" y="65" font-size="14">Y</text>
+            </svg>
+          </div>
+          <div class="description">
+            La salida es 1 solo si ambas entradas son 1
+          </div>
+          <div class="truth-table">
+            <h3>Tabla de Verdad</h3>
+            <table>
+              <tr>
+                <th>A</th>
+                <th>B</th>
+                <th>Y</th>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compuerta OR -->
+      <div class="section">
+        <h2>Compuerta Lógica OR</h2>
+        <p>
+          El circuito integrado <strong>7432</strong> implementa la compuerta
+          lógica OR (O). Es una compuerta lógica básica que produce una salida
+          verdadera (1) cuando al menos una de sus entradas es verdadera.
+        </p>
+        <p>
+          <strong>¿Cómo funciona la compuerta OR?</strong> La salida es 1 si una o
+          ambas entradas son 1.
+        </p>
+
+        <div class="gate-card">
+          <div class="gate-title">OR</div>
+          <div class="gate-svg">
+            <svg width="200" height="120" viewBox="0 0 200 120">
+              <line
+                x1="20"
+                y1="35"
+                x2="55"
+                y2="35"
+                stroke="#60a5fa"
+                stroke-width="3"
+              />
+              <line
+                x1="20"
+                y1="85"
+                x2="55"
+                y2="85"
+                stroke="#60a5fa"
+                stroke-width="3"
+              />
+              <path
+                d="M 50 20 Q 70 20 90 60 Q 70 100 50 100 Q 60 60 50 20"
+                fill="rgba(96, 165, 250, 0.2)"
+                stroke="#60a5fa"
+                stroke-width="3"
+              />
+              <path
+                d="M 90 60 Q 130 60 150 60"
+                fill="none"
+                stroke="#60a5fa"
+                stroke-width="3"
+              />
+              <path
+                d="M 90 60 L 150 20 L 150 100 Z"
+                fill="rgba(96, 165, 250, 0.2)"
+                stroke="#60a5fa"
+                stroke-width="3"
+              />
+              <line
+                x1="150"
+                y1="60"
+                x2="180"
+                y2="60"
+                stroke="#60a5fa"
+                stroke-width="3"
+              />
+              <text x="10" y="40" font-size="14">A</text>
+              <text x="10" y="90" font-size="14">B</text>
+              <text x="185" y="65" font-size="14">Y</text>
+            </svg>
+          </div>
+          <div class="description">
+            La salida es 1 si al menos una entrada es 1
+          </div>
+          <div class="truth-table">
+            <h3>Tabla de Verdad</h3>
+            <table>
+              <tr>
+                <th>A</th>
+                <th>B</th>
+                <th>Y</th>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compuerta NOT -->
+      <div class="section">
+        <h2>Compuerta Lógica NOT</h2>
+        <p>
+          El circuito integrado <strong>7404</strong> implementa la compuerta
+          lógica NOT (NO). Es una compuerta lógica básica que invierte el valor de
+          la entrada.
+        </p>
+        <p>
+          <strong>¿Cómo funciona la compuerta NOT?</strong> Si la entrada es 1, la
+          salida será 0. Si la entrada es 0, la salida será 1. A diferencia de
+          otras compuertas, la NOT tiene una sola entrada.
+        </p>
+
+        <div class="gate-card">
+          <div class="gate-title">NOT</div>
+          <div class="gate-svg">
+            <svg width="200" height="120" viewBox="0 0 200 120">
+              <line
+                x1="20"
+                y1="60"
+                x2="60"
+                y2="60"
+                stroke="#fb923c"
+                stroke-width="3"
+              />
+              <polygon
+                points="60,30 60,90 130,60"
+                fill="rgba(251, 146, 60, 0.2)"
+                stroke="#fb923c"
+                stroke-width="3"
+              />
+              <circle
+                cx="140"
+                cy="60"
+                r="10"
+                fill="rgba(10, 14, 39, 0.8)"
+                stroke="#fb923c"
+                stroke-width="3"
+              />
+              <line
+                x1="150"
+                y1="60"
+                x2="180"
+                y2="60"
+                stroke="#fb923c"
+                stroke-width="3"
+              />
+              <text x="10" y="65" font-size="14">A</text>
+              <text x="185" y="65" font-size="14">Y</text>
+            </svg>
+          </div>
+          <div class="description">La salida es el inverso de la entrada</div>
+          <div class="truth-table">
+            <h3>Tabla de Verdad</h3>
+            <table>
+              <tr>
+                <th>A</th>
+                <th>Y</th>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulación -->
+      <div class="section">
+        <h2>Simulación de Compuertas Lógicas</h2>
+        <div class="highlight">
+          <p>
+            <strong>Recordatorio de circuitos integrados:</strong>
+          </p>
+          <ul>
+            <li>Compuerta NOT: <strong>7404</strong></li>
+            <li>Compuerta AND: <strong>7408</strong></li>
+            <li>Compuerta OR: <strong>7432</strong></li>
+          </ul>
+        </div>
+
+        <p>
+          Ahora vamos a simular el comportamiento de las compuertas lógicas. Para
+          ello, construiremos un circuito que encienda un foco (LED) según las
+          condiciones de las compuertas.
+        </p>
+
+        <p>
+          Para realizar la práctica utilizaremos <strong>Tinkercad</strong>. Si
+          aún no tienes cuenta, ingresa al siguiente
+          <a href="https://www.tinkercad.com/dashboard" target="_blank">enlace</a>
+          y crea una.
+        </p>
+
+        <p>
+          En el siguiente enlace podrás visualizar el resultado de la práctica que
+          realizaremos. Podrás observar las conexiones y simular el comportamiento
+          del circuito:
+        </p>
+
+        <div class="button-container">
+          <a
+            href="https://www.tinkercad.com/things/73dGob5Mnzn-sizzling-kasi"
+            target="_blank"
+            class="sim-button"
+          >
+            Visualizar Simulación →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 Compuertas Lógicas - Material Educativo</p>
+    </footer>
+  </body>
+</html>

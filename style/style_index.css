@@ -1,0 +1,310 @@
+
+      :root {
+        --color-bg: #0a0e27;
+        --color-surface: #151b3d;
+        --color-accent: #4ade80;
+        --color-accent-2: #60a5fa;
+        --color-accent-3: #fb923c;
+        --color-text: #e2e8f0;
+        --color-text-dim: #94a3b8;
+        --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Quicksand', sans-serif;
+        background: var(--color-bg);
+        color: var(--color-text);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Fondo animado con múltiples capas */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 20% 50%, rgba(74, 222, 128, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 40% 80%, rgba(251, 146, 60, 0.15) 0%, transparent 50%);
+        z-index: -2;
+        animation: backgroundShift 20s ease-in-out infinite;
+      }
+
+      /* Partículas flotantes */
+      body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          radial-gradient(2px 2px at 20% 30%, rgba(74, 222, 128, 0.3), transparent),
+          radial-gradient(2px 2px at 60% 70%, rgba(96, 165, 250, 0.3), transparent),
+          radial-gradient(2px 2px at 50% 50%, rgba(251, 146, 60, 0.3), transparent),
+          radial-gradient(2px 2px at 80% 10%, rgba(74, 222, 128, 0.3), transparent),
+          radial-gradient(2px 2px at 90% 60%, rgba(96, 165, 250, 0.3), transparent),
+          radial-gradient(1px 1px at 33% 80%, rgba(251, 146, 60, 0.3), transparent),
+          radial-gradient(1px 1px at 70% 40%, rgba(74, 222, 128, 0.3), transparent);
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+        z-index: -1;
+        animation: particleFloat 30s ease-in-out infinite;
+      }
+
+      @keyframes backgroundShift {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+      }
+
+      @keyframes particleFloat {
+        0%, 100% { 
+          background-position: 0% 0%;
+          opacity: 0.4;
+        }
+        50% { 
+          background-position: 100% 100%;
+          opacity: 0.7;
+        }
+      }
+
+      /* Contenedor principal */
+      .hero-container {
+        text-align: center;
+        padding: 2rem;
+        max-width: 900px;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      /* Logo o icono decorativo */
+      .hero-icon {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 2rem;
+        background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(96, 165, 250, 0.2));
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        border: 2px solid rgba(74, 222, 128, 0.3);
+        box-shadow: 
+          0 0 40px rgba(74, 222, 128, 0.3),
+          inset 0 0 30px rgba(74, 222, 128, 0.1);
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+
+      /* Título principal */
+      .hero-title {
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2), var(--color-accent-3));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -2px;
+        animation: fadeInDown 1s ease-out 0.2s backwards;
+      }
+
+      /* Autor */
+      .hero-author {
+        font-size: 1.5rem;
+        color: var(--color-text);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        animation: fadeInDown 1s ease-out 0.4s backwards;
+      }
+
+      /* Rol */
+      .hero-role {
+        font-size: 1.1rem;
+        color: var(--color-text-dim);
+        font-weight: 400;
+        margin-bottom: 3rem;
+        animation: fadeInDown 1s ease-out 0.6s backwards;
+      }
+
+      /* Botón CTA */
+      .cta-button {
+        display: inline-block;
+        padding: 1.2rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--color-bg);
+        background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+        border-radius: 50px;
+        box-shadow: 
+          0 10px 30px rgba(74, 222, 128, 0.4),
+          0 0 50px rgba(74, 222, 128, 0.2);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 1s ease-out 0.8s backwards;
+      }
+
+      .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s;
+      }
+
+      .cta-button:hover::before {
+        left: 100%;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 
+          0 15px 40px rgba(74, 222, 128, 0.6),
+          0 0 60px rgba(74, 222, 128, 0.3);
+      }
+
+      .cta-button:active {
+        transform: translateY(-2px);
+      }
+
+      /* Elementos decorativos flotantes */
+      .decoration {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .decoration-1 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(74, 222, 128, 0.1), transparent);
+        top: -100px;
+        right: -100px;
+        animation: rotate 30s linear infinite;
+      }
+
+      .decoration-2 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(96, 165, 250, 0.1), transparent);
+        bottom: -50px;
+        left: -50px;
+        animation: rotate 25s linear infinite reverse;
+      }
+
+      .decoration-3 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(251, 146, 60, 0.1), transparent);
+        top: 50%;
+        left: 10%;
+        animation: pulse 8s ease-in-out infinite;
+      }
+
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes pulse {
+        0%, 100% { 
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        50% { 
+          transform: scale(1.2);
+          opacity: 0.8;
+        }
+      }
+
+      /* Animaciones de entrada */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+          letter-spacing: -1px;
+        }
+
+        .hero-author {
+          font-size: 1.2rem;
+        }
+
+        .hero-role {
+          font-size: 1rem;
+        }
+
+        .hero-icon {
+          width: 100px;
+          height: 100px;
+          font-size: 3rem;
+        }
+
+        .cta-button {
+          padding: 1rem 2rem;
+          font-size: 1.1rem;
+        }
+
+        .decoration-1,
+        .decoration-2,
+        .decoration-3 {
+          display: none;
+        }
+      }
+
+      /* Flecha animada en el botón */
+      .cta-button::after {
+        content: '→';
+        margin-left: 0.5rem;
+        display: inline-block;
+        transition: transform 0.3s ease;
+      }
+
+      .cta-button:hover::after {
+        transform: translateX(5px);
+      }

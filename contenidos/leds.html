@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arduino - Introducción y Control de LEDs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/style_leds.css">
+    <link rel="icon" type="image/x-icon" href="../img/imagee.png">
+  </head>
+  <body>
+    <header>
+      <h1>Arduino</h1>
+      <p class="subtitle">Introducción y Control de LEDs</p>
+    </header>
+
+    <div class="container">
+      <!-- ¿Qué es Arduino? -->
+      <section class="section">
+        <h2>¿Qué es Arduino?</h2>
+        <p>
+          Arduino es una plataforma de código abierto diseñada para facilitar la creación de proyectos electrónicos interactivos. Está compuesto por:
+        </p>
+        <ul>
+          <li><strong>Hardware:</strong> Una placa electrónica (como Arduino Uno, Nano o Mega) con microcontrolador integrado.</li>
+          <li><strong>Software:</strong> Un entorno de desarrollo (Arduino IDE) donde se escribe y carga el código.</li>
+        </ul>
+        <p>
+          Se programa usando un lenguaje basado en <span class="highlight">C</span> y <span class="highlight">C++</span>, pero simplificado para facilitar el aprendizaje, especialmente para principiantes.
+        </p>
+
+        <div class="info-box">
+          <strong>¿Para qué sirve Arduino?</strong>
+          <p>Con Arduino puedes:</p>
+          <ul>
+            <li>Encender y controlar LEDs</li>
+            <li>Leer datos de sensores (temperatura, luz, movimiento, etc.)</li>
+            <li>Controlar motores y servomotores</li>
+            <li>Crear proyectos de robótica, domótica y automatización</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Cómo encender y apagar LEDs -->
+      <section class="section">
+        <h2>Cómo Encender y Apagar LEDs</h2>
+        <p><strong>Materiales necesarios:</strong></p>
+        <div class="materials">
+          <div class="material-item">Arduino</div>
+          <div class="material-item">Protoboard</div>
+          <div class="material-item">Resistencias</div>
+          <div class="material-item">LEDs</div>
+          <div class="material-item">Cables</div>
+        </div>
+        <p>
+          Cuando trabajamos con Arduino, el código se estructura en dos funciones principales que exploraremos a continuación.
+        </p>
+      </section>
+
+      <!-- Función setup() -->
+      <section class="section">
+        <h2>Función void setup()</h2>
+        <pre><code>void setup() {
+  // Código de configuración
+}</code></pre>
+
+        <p>
+          La función <span class="highlight">setup()</span> se ejecuta <strong>una sola vez</strong> cuando:
+        </p>
+        <ul>
+          <li>Se enciende la placa Arduino</li>
+          <li>Se presiona el botón de reset</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>¿Para qué sirve?</strong>
+          <p>Se utiliza para configurar el programa. Aquí se definen:</p>
+          <ul>
+            <li>Pines de entrada o salida</li>
+            <li>Comunicación serial</li>
+            <li>Configuración inicial de sensores o módulos</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Función loop() -->
+      <section class="section">
+        <h2>Función void loop()</h2>
+        <pre><code>void loop() {
+  // Código que se repite
+}</code></pre>
+
+        <p>
+          La función <span class="highlight">loop()</span> se ejecuta <strong>repetidamente</strong> mientras Arduino esté encendido, creando un ciclo infinito.
+        </p>
+
+        <div class="info-box">
+          <strong>¿Para qué sirve?</strong>
+          <p>Aquí va la lógica principal del programa:</p>
+          <ul>
+            <li>Encender y apagar LEDs</li>
+            <li>Leer valores de sensores</li>
+            <li>Tomar decisiones con condicionales</li>
+            <li>Ejecutar acciones de forma continua</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- pinMode() -->
+      <section class="section">
+        <h2>Función pinMode()</h2>
+        <p>
+          La función <span class="highlight">pinMode()</span> se utiliza para configurar el comportamiento de un pin digital, indicando si funcionará como <strong>entrada</strong> o <strong>salida</strong>.
+        </p>
+
+        <p><strong>Sintaxis:</strong></p>
+        <pre><code>pinMode(pin, modo);</code></pre>
+
+        <div class="params-table">
+          <p><span class="param">pin</span> → Número del pin digital (por ejemplo: 2, 8, 13)</p>
+          <p><span class="param">modo</span> → Tipo de funcionamiento del pin</p>
+        </div>
+
+        <div class="info-box">
+          <strong>Modos disponibles:</strong>
+          <ul>
+            <li><strong>OUTPUT (Salida):</strong> El pin envía voltaje hacia un componente (LED, relé, buzzer, etc.)
+              <pre><code>pinMode(13, OUTPUT);</code></pre>
+            </li>
+            <li><strong>INPUT (Entrada):</strong> El pin recibe información de un dispositivo externo (botón, sensor, etc.)
+              <pre><code>pinMode(2, INPUT);</code></pre>
+            </li>
+          </ul>
+        </div>
+
+        <p>
+          <strong>Nota:</strong> Esta función se usa normalmente dentro de <span class="highlight">void setup()</span>.
+        </p>
+      </section>
+
+      <!-- digitalWrite() -->
+      <section class="section">
+        <h2>Función digitalWrite()</h2>
+        <p>
+          La función <span class="highlight">digitalWrite()</span> se utiliza para enviar un valor digital a un pin configurado como salida, es decir, para encender o apagar un dispositivo.
+        </p>
+
+        <p><strong>Sintaxis:</strong></p>
+        <pre><code>digitalWrite(pin, valor);</code></pre>
+
+        <div class="params-table">
+          <p><span class="param">pin</span> → Número del pin digital</p>
+          <p><span class="param">valor</span> → HIGH o LOW</p>
+        </div>
+
+        <div class="info-box">
+          <strong>Valores disponibles:</strong>
+          <ul>
+            <li><strong>HIGH:</strong> Envía voltaje (generalmente 5V o 3.3V) - Enciende el dispositivo</li>
+            <li><strong>LOW:</strong> Corta el voltaje (0V) - Apaga el dispositivo</li>
+          </ul>
+        </div>
+
+        <p>
+          Se usa principalmente para controlar LEDs, relés, buzzers, entre otros componentes.
+        </p>
+      </section>
+
+      <!-- Ejemplo básico -->
+      <section class="section">
+        <h2>Ejemplo: Parpadeo de LED (Blink)</h2>
+        <p>
+          Este es el programa más básico de Arduino, ideal para comenzar a programar.
+        </p>
+
+        <pre><code>void setup() {
+  pinMode(13, OUTPUT);  // Configura el pin 13 como salida
+}
+
+void loop() {
+  digitalWrite(13, HIGH);  // Enciende el LED
+  delay(500);              // Espera 500 milisegundos
+  digitalWrite(13, LOW);   // Apaga el LED
+  delay(500);              // Espera 500 milisegundos
+}</code></pre>
+
+        <p>
+          <strong>Explicación:</strong> Este código hace que el LED conectado al pin 13 parpadee cada medio segundo (500 ms encendido, 500 ms apagado).
+        </p>
+      </section>
+
+      <!-- Ejercicio práctico -->
+      <section class="section">
+        <h2>Ejercicio: Encender y Apagar LEDs</h2>
+        <p>
+          Presiona el siguiente enlace para visualizar el circuito utilizado en este ejercicio práctico:
+        </p>
+        <a href="https://www.tinkercad.com/things/bwPgNvBquLm-leds" target="_blank" class="link-button">
+          Ver Circuito en Tinkercad →
+        </a>
+        <p style="margin-top: 1rem;">
+          En el circuito podrás observar las conexiones necesarias y simular el comportamiento del programa.
+        </p>
+      </section>
+
+      <!-- Actividades -->
+      <section class="section">
+        <h2>Actividades Propuestas</h2>
+        <div class="activity-box">
+          <h3>Actividad 1: Secuencia de LEDs</h3>
+          <div class="activity-item">
+            <p>
+              Encender y apagar <strong>7 LEDs</strong> en orden ascendente y descendente. El primer LED enciende, luego el segundo, y así sucesivamente hasta el séptimo. Después, se apagan en orden inverso.
+            </p>
+          </div>
+        </div>
+
+        <div class="activity-box">
+          <h3>Actividad 2: Uso de Bucles</h3>
+          <div class="activity-item">
+            <p>
+              Realizar la misma secuencia de la Actividad 1, pero utilizando:
+            </p>
+            <ul>
+              <li>Bucle <span class="highlight">for</span></li>
+              <li>Bucle <span class="highlight">while</span></li>
+            </ul>
+            <p>Compara la eficiencia y legibilidad de ambas soluciones.</p>
+          </div>
+        </div>
+
+        <div class="activity-box">
+          <h3>Actividad 3: Creación de Funciones</h3>
+          <div class="activity-item">
+            <p>
+              Crea una función que reciba como parámetro el <strong>número de pin digital</strong> y que se encargue de encender y apagar ese LED con un retardo.
+            </p>
+            <pre><code>void parpadearLED(int pin) {
+  digitalWrite(pin, HIGH);
+  delay(500);
+  digitalWrite(pin, LOW);
+  delay(500);
+}</code></pre>
+            <p>
+              Utiliza esta función para simplificar tu código y hacerlo más reutilizable.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>© 2026 Arduino - Material Educativo</p>
+    </footer>
+  </body>
+</html>

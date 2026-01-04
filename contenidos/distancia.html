@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sensor de Distancia HC-SR04</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/style_distancia.css">
+    <link rel="icon" type="image/x-icon" href="../img/imagee.png">
+  </head>
+  <body>
+    <header>
+      <h1>Sensor de Distancia</h1>
+      <p class="subtitle">HC-SR04 / Sensor Ping</p>
+    </header>
+
+    <div class="container">
+      <!-- Introducción -->
+      <section class="section">
+        <h2>¿Qué es el Sensor de Distancia?</h2>
+        
+        <div class="sensor-image">
+          <img src="../img/sensor_ping.png" alt="Sensor de distancia ultrasónico Ping">
+        </div>
+
+        <p>
+          El sensor de distancia ultrasónico se utiliza para medir distancias mediante <strong>ondas ultrasónicas</strong>. Su funcionamiento se basa en el tiempo que tarda el sonido en ir y regresar después de rebotar en un objeto.
+        </p>
+
+        <div class="info-box">
+          <strong>Conexión del Sensor</strong>
+          <p>Como se puede observar en la imagen, el sensor tiene tres conexiones principales:</p>
+        </div>
+
+        <div class="pins-info">
+          <div class="pin-card">
+            <div class="pin-name">GND</div>
+            <p>Se conecta a la línea negativa del protoboard (tierra).</p>
+          </div>
+          <div class="pin-card">
+            <div class="pin-name">5V</div>
+            <p>Se conecta a la línea positiva del protoboard (alimentación).</p>
+          </div>
+          <div class="pin-card">
+            <div class="pin-name">SIG</div>
+            <p>Se conecta a un pin digital de Arduino para enviar y recibir señales.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modo de funcionamiento -->
+      <section class="section">
+        <h2>Modo de Funcionamiento</h2>
+        <p>
+          El proceso de medición de distancia con ultrasonido sigue los siguientes pasos:
+        </p>
+
+        <div class="process-steps">
+          <div class="step">
+            Arduino envía un pulso eléctrico al pin SIG del sensor.
+          </div>
+          <div class="step">
+            El sensor convierte ese pulso eléctrico en un pulso ultrasónico (onda sonora de alta frecuencia).
+          </div>
+          <div class="step">
+            El pulso ultrasónico viaja por el aire, choca con un objeto y rebota.
+          </div>
+          <div class="step">
+            El eco regresa al sensor.
+          </div>
+          <div class="step">
+            El sensor envía una señal de retorno a Arduino indicando el tiempo que tardó el eco en regresar.
+          </div>
+          <div class="step">
+            Arduino calcula la distancia basándose en el tiempo medido y la velocidad del sonido.
+          </div>
+        </div>
+
+        <div class="info-box">
+          <strong>Fórmula de cálculo:</strong>
+          <p>Distancia (cm) = (Tiempo en microsegundos × 0.034) / 2</p>
+          <p style="margin-top: 0.5rem; color: var(--color-text-dim); font-size: 0.95rem;">
+            El valor 0.034 corresponde a la velocidad del sonido (340 m/s = 0.034 cm/µs), y se divide entre 2 porque el sonido recorre la distancia dos veces (ida y vuelta).
+          </p>
+        </div>
+      </section>
+
+      <!-- Ejemplo de código -->
+      <section class="section">
+        <h2>Ejemplo de Código</h2>
+        <p>
+          A continuación se muestra un programa básico para medir distancias con el sensor ultrasónico:
+        </p>
+
+        <pre><code>long tiempo;
+int distancia;
+int pinSensor = 7;
+
+void setup() {
+  Serial.begin(9600);  // Inicializa comunicación serial
+}
+
+void loop() {
+  // Configurar el pin como salida y enviar pulso
+  pinMode(pinSensor, OUTPUT);
+  digitalWrite(pinSensor, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pinSensor, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pinSensor, LOW);
+  
+  // Configurar el pin como entrada y leer el eco
+  pinMode(pinSensor, INPUT);
+  tiempo = pulseIn(pinSensor, HIGH);
+  
+  // Calcular la distancia
+  distancia = tiempo * 0.034 / 2;
+  
+  // Mostrar resultado en el monitor serial
+  Serial.print("Distancia: ");
+  Serial.print(distancia);
+  Serial.println(" cm");
+  
+  delay(500);  // Esperar medio segundo
+}</code></pre>
+
+        <div class="info-box">
+          <strong>Explicación del código:</strong>
+          <p>• <strong>pulseIn():</strong> Mide el tiempo que el pin permanece en HIGH (cuando recibe el eco).</p>
+          <p>• <strong>Serial.begin(9600):</strong> Inicializa la comunicación serial para ver los resultados en el monitor.</p>
+          <p>• <strong>delayMicroseconds():</strong> Crea pulsos muy cortos medidos en microsegundos.</p>
+        </div>
+      </section>
+
+      <!-- Actividades -->
+      <section class="section">
+        <h2>Actividades Propuestas</h2>
+        
+        <div class="activity-box">
+          <h3>Actividad 1: Control de LED por Distancia</h3>
+          <div class="activity-item">
+            Encender un LED si la distancia medida es <strong>mayor a 100 cm</strong>. Cuando un objeto esté lejos, el LED deberá estar encendido.
+          </div>
+        </div>
+
+        <div class="activity-box">
+          <h3>Actividad 2: Sistema de Alarma</h3>
+          <div class="activity-item">
+            Encender una alarma (buzzer o LED rojo) si la distancia es <strong>menor a 100 cm</strong>. Esto puede servir como sistema de alerta de proximidad.
+          </div>
+        </div>
+
+        <div class="activity-box">
+          <h3>Actividad 3: Semáforo de Proximidad (Desafío)</h3>
+          <div class="activity-item">
+            Crea un sistema con tres LEDs (verde, amarillo, rojo) que cambien según la distancia:
+            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+              <li>Verde: distancia > 150 cm (lejos)</li>
+              <li>Amarillo: distancia entre 50-150 cm (precaución)</li>
+              <li>Rojo: distancia < 50 cm (muy cerca)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Simulación -->
+      <section class="section">
+        <h2>Simulación en Tinkercad</h2>
+        <p>
+          Puedes observar el funcionamiento del sensor y probar el código en un entorno virtual antes de implementarlo físicamente.
+        </p>
+
+        <div class="button-container">
+          <a
+            href="https://www.tinkercad.com/things/4bNOtCfBjQf-sensor-ping"
+            target="_blank"
+            class="sim-button"
+          >
+            Ver Simulación →
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>© 2026 Sensor de Distancia - Material Educativo</p>
+    </footer>
+  </body>
+</html>
