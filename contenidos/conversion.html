@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversión entre Bases Numéricas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/style_conversion.css">
+    <link rel="stylesheet" href="../img/imagee.png">
+</head>
+<body>
+    <header>
+        <h1>Conversión entre Sistemas Numéricos</h1>
+        <p class="subtitle">Aprende a convertir entre Binario, Octal, Decimal y Hexadecimal</p>
+    </header>
+
+    <div class="container">
+        <!-- Introducción -->
+        <div class="section">
+            <h2>Sistemas de Representación de la Información</h2>
+            <p>En informática, utilizamos diferentes sistemas numéricos para representar información. Cada sistema tiene su propia base y símbolos únicos.</p>
+
+            <h3>Sistema Binario</h3>
+            <p>El sistema binario utiliza únicamente dos símbolos: <strong>0</strong> y <strong>1</strong>. Su base es <strong>2</strong>. Es el sistema fundamental en el que operan las computadoras, ya que representa estados de encendido (1) y apagado (0).</p>
+
+            <h3>Sistema Octal</h3>
+            <p>El sistema octal utiliza 8 símbolos (del 0 al 7) y su base es <strong>8</strong>. Cada dígito octal puede representarse con exactamente 3 bits binarios.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Binario</th>
+                        <th>Octal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>000</td><td>0</td></tr>
+                    <tr><td>001</td><td>1</td></tr>
+                    <tr><td>010</td><td>2</td></tr>
+                    <tr><td>011</td><td>3</td></tr>
+                    <tr><td>100</td><td>4</td></tr>
+                    <tr><td>101</td><td>5</td></tr>
+                    <tr><td>110</td><td>6</td></tr>
+                    <tr><td>111</td><td>7</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Sistema Hexadecimal</h3>
+            <p>El sistema hexadecimal utiliza 16 símbolos: del <strong>0 al 9</strong> y de la <strong>A a la F</strong> (donde A=10, B=11, C=12, D=13, E=14, F=15). Su base es <strong>16</strong>. Cada dígito hexadecimal representa exactamente 4 bits binarios.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Binario</th>
+                        <th>Decimal</th>
+                        <th>Hexadecimal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0000</td><td>0</td><td>0</td></tr>
+                    <tr><td>0001</td><td>1</td><td>1</td></tr>
+                    <tr><td>0010</td><td>2</td><td>2</td></tr>
+                    <tr><td>0011</td><td>3</td><td>3</td></tr>
+                    <tr><td>0100</td><td>4</td><td>4</td></tr>
+                    <tr><td>0101</td><td>5</td><td>5</td></tr>
+                    <tr><td>0110</td><td>6</td><td>6</td></tr>
+                    <tr><td>0111</td><td>7</td><td>7</td></tr>
+                    <tr><td>1000</td><td>8</td><td>8</td></tr>
+                    <tr><td>1001</td><td>9</td><td>9</td></tr>
+                    <tr><td>1010</td><td>10</td><td>A</td></tr>
+                    <tr><td>1011</td><td>11</td><td>B</td></tr>
+                    <tr><td>1100</td><td>12</td><td>C</td></tr>
+                    <tr><td>1101</td><td>13</td><td>D</td></tr>
+                    <tr><td>1110</td><td>14</td><td>E</td></tr>
+                    <tr><td>1111</td><td>15</td><td>F</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Conversiones desde Binario -->
+        <div class="section">
+            <h2>Conversiones desde Binario</h2>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: 1101010110</div>
+            </div>
+
+            <h3>Binario a Decimal</h3>
+            <p>Cada posición del número binario corresponde a una potencia de 2, comenzando desde la derecha con 2⁰. Para convertir, multiplicamos cada dígito por su potencia correspondiente y sumamos únicamente donde hay un <strong>1</strong>.</p>
+
+            <div class="process-steps">
+                <div class="step">Asignar a cada posición una potencia de 2, empezando por 2⁰ desde la derecha</div>
+                <div class="step">Calcular el valor de cada potencia</div>
+                <div class="step">Sumar los valores donde aparece un 1</div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>1</th>
+                        <th>1</th>
+                        <th>0</th>
+                        <th>1</th>
+                        <th>0</th>
+                        <th>1</th>
+                        <th>0</th>
+                        <th>1</th>
+                        <th>1</th>
+                        <th>0</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2⁹</td>
+                        <td>2⁸</td>
+                        <td>2⁷</td>
+                        <td>2⁶</td>
+                        <td>2⁵</td>
+                        <td>2⁴</td>
+                        <td>2³</td>
+                        <td>2²</td>
+                        <td>2¹</td>
+                        <td>2⁰</td>
+                    </tr>
+                    <tr>
+                        <td>512</td>
+                        <td>256</td>
+                        <td>128</td>
+                        <td>64</td>
+                        <td>32</td>
+                        <td>16</td>
+                        <td>8</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="formula">512 + 256 + 64 + 16 + 4 + 2 = 854 (decimal)</div>
+
+            <h3>Binario a Octal</h3>
+            <p>Para convertir de binario a octal, agrupamos los bits en conjuntos de <strong>3 bits</strong> de derecha a izquierda. Si el último grupo no se completa, añadimos ceros a la izquierda. Luego, convertimos cada grupo a su equivalente octal.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>001</th>
+                        <th>101</th>
+                        <th>010</th>
+                        <th>110</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>6</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> La respuesta se lee de izquierda a derecha como un número decimal: <strong>1526₈</strong> (en octal)
+            </div>
+
+            <h3>Binario a Hexadecimal</h3>
+            <p>Para convertir de binario a hexadecimal, agrupamos los bits en conjuntos de <strong>4 bits</strong> de derecha a izquierda. Si el último grupo no se completa, añadimos ceros a la izquierda. Luego, convertimos cada grupo a su equivalente hexadecimal.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>0011</th>
+                        <th>0101</th>
+                        <th>0110</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>6</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> Unimos las respuestas y leemos de izquierda a derecha: <strong>356₁₆</strong> (en hexadecimal)
+            </div>
+        </div>
+
+        <!-- Conversiones desde Octal -->
+        <div class="section">
+            <h2>Conversiones desde Octal</h2>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: 35₈</div>
+            </div>
+
+            <h3>Octal a Binario</h3>
+            <p>La conversión de octal a binario es directa: cada dígito octal se convierte a su equivalente binario de <strong>3 bits</strong>. Escribimos el equivalente binario debajo de cada dígito octal.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>3</th>
+                        <th>5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>011</td>
+                        <td>101</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> <strong>011101₂</strong> en binario
+            </div>
+
+            <h3>Octal a Hexadecimal</h3>
+            <p>Para convertir de octal a hexadecimal, primero debemos convertir el número octal a binario, y luego de binario a hexadecimal.</p>
+
+            <div class="process-steps">
+                <div class="step">Convertir cada dígito octal a su equivalente binario de 3 bits: 35₈ → 011101₂</div>
+                <div class="step">Agrupar el resultado binario en grupos de 4 bits de derecha a izquierda: 0001 1101</div>
+                <div class="step">Convertir cada grupo de 4 bits a hexadecimal</div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>0001</th>
+                        <th>1101</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>D</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> <strong>1D₁₆</strong> en hexadecimal
+            </div>
+
+            <h3>Octal a Decimal</h3>
+            <p>Utilizamos la base 8, donde cada exponente corresponde a la posición de cada dígito (empezando por 8⁰ desde la derecha). Multiplicamos cada dígito por su potencia correspondiente y sumamos los resultados.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>3</th>
+                        <th>5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>8¹</td>
+                        <td>8⁰</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>3 × 8 = 24</td>
+                        <td>5 × 1 = 5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="formula">24 + 5 = 29 (decimal)</div>
+        </div>
+
+        <!-- Conversiones desde Hexadecimal -->
+        <div class="section">
+            <h2>Conversiones desde Hexadecimal</h2>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: 1A₁₆</div>
+            </div>
+
+            <h3>Hexadecimal a Binario</h3>
+            <p>La conversión de hexadecimal a binario es directa: cada dígito hexadecimal se convierte a su equivalente binario de <strong>4 bits</strong>.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>1</th>
+                        <th>A (10)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0001</td>
+                        <td>1010</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> <strong>00011010₂</strong> en binario
+            </div>
+
+            <h3>Hexadecimal a Octal</h3>
+            <p>Para convertir de hexadecimal a octal, primero convertimos a binario y luego de binario a octal.</p>
+
+            <div class="process-steps">
+                <div class="step">Convertir cada dígito hexadecimal a binario de 4 bits: 1A₁₆ → 00011010₂</div>
+                <div class="step">Agrupar en grupos de 3 bits de derecha a izquierda: 000 011 010</div>
+                <div class="step">Convertir cada grupo de 3 bits a octal</div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>000</th>
+                        <th>011</th>
+                        <th>010</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>3</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> <strong>032₈</strong> en octal (o simplemente 32₈)
+            </div>
+
+            <h3>Hexadecimal a Decimal</h3>
+            <p>Utilizamos la base 16, donde cada exponente corresponde a la posición de cada dígito. Multiplicamos cada dígito por su potencia correspondiente y sumamos.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>1</th>
+                        <th>A (10)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>16¹</td>
+                        <td>16⁰</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>1 × 16 = 16</td>
+                        <td>10 × 1 = 10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="formula">16 + 10 = 26 (decimal)</div>
+        </div>
+
+        <!-- Conversiones desde Decimal -->
+        <div class="section">
+            <h2>Conversiones desde Decimal</h2>
+            
+            <div class="example-box">
+                <div class="example-title">Ejemplo: 50₁₀</div>
+            </div>
+
+            <h3>Decimal a Binario</h3>
+            <p>Para convertir de decimal a binario, dividimos sucesivamente el número entre 2 y guardamos los residuos. El resultado se obtiene leyendo los residuos de abajo hacia arriba.</p>
+
+            <div class="process-steps">
+                <div class="step">50 ÷ 2 = 25, residuo: <strong>0</strong></div>
+                <div class="step">25 ÷ 2 = 12, residuo: <strong>1</strong></div>
+                <div class="step">12 ÷ 2 = 6, residuo: <strong>0</strong></div>
+                <div class="step">6 ÷ 2 = 3, residuo: <strong>0</strong></div>
+                <div class="step">3 ÷ 2 = 1, residuo: <strong>1</strong></div>
+                <div class="step">1 ÷ 2 = 0, residuo: <strong>1</strong></div>
+            </div>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> Leyendo los residuos de abajo hacia arriba: <strong>110010₂</strong> en binario
+            </div>
+
+            <h3>Decimal a Octal</h3>
+            <p>Similar al proceso anterior, pero dividimos entre 8 y guardamos los residuos.</p>
+
+            <div class="process-steps">
+                <div class="step">50 ÷ 8 = 6, residuo: <strong>2</strong></div>
+                <div class="step">6 ÷ 8 = 0, residuo: <strong>6</strong></div>
+            </div>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> Leyendo los residuos de abajo hacia arriba: <strong>62₈</strong> en octal
+            </div>
+
+            <h3>Decimal a Hexadecimal</h3>
+            <p>Dividimos sucesivamente entre 16 y guardamos los residuos. Si el residuo es mayor que 9, lo convertimos a su equivalente en letras (10=A, 11=B, 12=C, 13=D, 14=E, 15=F).</p>
+
+            <div class="process-steps">
+                <div class="step">50 ÷ 16 = 3, residuo: <strong>2</strong></div>
+                <div class="step">3 ÷ 16 = 0, residuo: <strong>3</strong></div>
+            </div>
+
+            <div class="info-box">
+                <strong>Resultado:</strong> Leyendo los residuos de abajo hacia arriba: <strong>32₁₆</strong> en hexadecimal
+            </div>
+        </div>
+
+        <!-- Tabla de resumen -->
+        <div class="section">
+            <h2>Tabla de Resumen de Conversiones</h2>
+            <p>Esta tabla resume los métodos de conversión entre los diferentes sistemas numéricos:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Desde</th>
+                        <th>Hacia</th>
+                        <th>Método</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Binario</td>
+                        <td>Decimal</td>
+                        <td>Sumar potencias de 2 donde hay 1</td>
+                    </tr>
+                    <tr>
+                        <td>Binario</td>
+                        <td>Octal</td>
+                        <td>Agrupar en 3 bits y convertir</td>
+                    </tr>
+                    <tr>
+                        <td>Binario</td>
+                        <td>Hexadecimal</td>
+                        <td>Agrupar en 4 bits y convertir</td>
+                    </tr>
+                    <tr>
+                        <td>Octal</td>
+                        <td>Binario</td>
+                        <td>Convertir cada dígito a 3 bits</td>
+                    </tr>
+                    <tr>
+                        <td>Octal</td>
+                        <td>Decimal</td>
+                        <td>Sumar multiplicaciones por potencias de 8</td>
+                    </tr>
+                    <tr>
+                        <td>Octal</td>
+                        <td>Hexadecimal</td>
+                        <td>Convertir a binario, luego
+                            a hexadecimal</td>
+                    </tr>
+                    <tr>
+                        <td>Hexadecimal</td>
+                        <td>Binario</td>
+                        <td>Convertir cada dígito a 4 bits</td>
+                    </tr>
+                    <tr>
+                        <td>Hexadecimal</td>
+                        <td>Decimal</td>
+                        <td>Sumar multiplicaciones por potencias de 16</td>
+                    </tr>
+                    <tr>
+                        <td>Hexadecimal</td>
+                        <td>Octal</td>
+                        <td>Convertir a binario, luego a octal</td>
+                    </tr>
+                    <tr>
+                        <td>Decimal</td>
+                        <td>Binario</td>
+                        <td>Divisiones sucesivas entre 2</td>
+                    </tr>
+                    <tr>
+                        <td>Decimal</td>
+                        <td>Octal</td>
+                        <td>Divisiones sucesivas entre 8</td>
+                    </tr>
+                    <tr>
+                        <td>Decimal</td>
+                        <td>Hexadecimal</td>
+                        <td>Divisiones sucesivas entre 16</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Consejos y Trucos -->
+        <div class="section">
+            <h2>Consejos y Trucos</h2>
+            
+            <div class="info-box">
+                <strong>Tip 1: Verifica tus conversiones</strong>
+                Siempre puedes verificar tus conversiones convirtiendo el resultado de vuelta al sistema original. Si obtienes el mismo número, tu conversión fue correcta.
+            </div>
+
+            <div class="info-box">
+                <strong>Tip 2: Memoriza las equivalencias básicas</strong>
+                Conocer las equivalencias entre binario-octal (3 bits) y binario-hexadecimal (4 bits) te permitirá realizar conversiones mucho más rápido.
+            </div>
+
+            <div class="info-box">
+                <strong>Tip 3: Usa ceros a la izquierda</strong>
+                Al agrupar bits para convertir a octal o hexadecimal, siempre completa el último grupo con ceros a la izquierda. Esto no cambia el valor del número.
+            </div>
+
+            <div class="info-box">
+                <strong>Tip 4: Practica con números pequeños</strong>
+                Antes de intentar convertir números grandes, practica con números pequeños (menores a 256) para familiarizarte con el proceso.
+            </div>
+        </div>
+
+        <!-- Ejercicios Prácticos -->
+        <div class="section">
+            <h2>Ejercicios Prácticos</h2>
+            <p>Practica tus conocimientos con los siguientes ejercicios:</p>
+
+            <h3>Ejercicio 1: Conversiones Básicas</h3>
+            <div class="example-box">
+                <p><strong>a)</strong> Convierte 11010₂ a decimal</p>
+                <p><strong>b)</strong> Convierte 75₁₀ a binario</p>
+                <p><strong>c)</strong> Convierte 2F₁₆ a decimal</p>
+                <p><strong>d)</strong> Convierte 64₈ a hexadecimal</p>
+            </div>
+
+            <h3>Ejercicio 2: Conversiones Intermedias</h3>
+            <div class="example-box">
+                <p><strong>a)</strong> Convierte 11111111₂ a hexadecimal</p>
+                <p><strong>b)</strong> Convierte 255₁₀ a todas las bases (binario, octal, hexadecimal)</p>
+                <p><strong>c)</strong> Convierte ABC₁₆ a octal</p>
+                <p><strong>d)</strong> Convierte 777₈ a binario</p>
+            </div>
+
+            <h3>Ejercicio 3: Conversiones Avanzadas</h3>
+            <div class="example-box">
+                <p><strong>a)</strong> Convierte 10101010101010₂ a hexadecimal y luego a decimal</p>
+                <p><strong>b)</strong> Convierte 1024₁₀ a todas las bases</p>
+                <p><strong>c)</strong> ¿Cuál es el número hexadecimal más grande que se puede representar con 8 bits?</p>
+                <p><strong>d)</strong> Convierte CAFE₁₆ a binario y luego a octal</p>
+            </div>
+
+            <div class="info-box">
+                <strong>Respuestas del Ejercicio 1:</strong>
+                <p>a) 26₁₀ | b) 1001011₂ | c) 47₁₀ | d) 34₁₆</p>
+            </div>
+
+            <div class="info-box">
+                <strong>Respuestas del Ejercicio 2:</strong>
+                <p>a) FF₁₆ | b) 11111111₂, 377₈, FF₁₆ | c) 5274₈ | d) 111111111₂</p>
+            </div>
+
+            <div class="info-box">
+                <strong>Respuestas del Ejercicio 3:</strong>
+                <p>a) 2AAA₁₆ = 10922₁₀ | b) 10000000000₂, 2000₈, 400₁₆ | c) FF₁₆ | d) 1100101011111110₂ = 145376₈</p>
+            </div>
+        </div>
+
+        <!-- Aplicaciones Prácticas -->
+        <div class="section">
+            <h2>Aplicaciones Prácticas en Informática</h2>
+            
+            <h3>Direcciones IP</h3>
+            <p>Las direcciones IPv4 se representan comúnmente en decimal, pero internamente se almacenan en binario. Por ejemplo:</p>
+            <div class="example-box">
+                <p><strong>192.168.1.1</strong> en decimal es:</p>
+                <p><strong>11000000.10101000.00000001.00000001</strong> en binario</p>
+            </div>
+
+            <h3>Colores en Diseño Web</h3>
+            <p>Los colores en CSS se representan en hexadecimal. Cada par de dígitos representa la intensidad de rojo, verde y azul (RGB):</p>
+            <div class="example-box">
+                <p><strong>#FF5733</strong> significa:</p>
+                <p>• FF (255) de rojo</p>
+                <p>• 57 (87) de verde</p>
+                <p>• 33 (51) de azul</p>
+            </div>
+        </div>
+
+        <!-- Recursos Adicionales -->
+        <div class="section">
+            <h2>Recursos y Referencias</h2>
+            
+            <div class="info-box">
+                <strong>Herramientas Online</strong>
+                <p>Existen numerosas calculadoras online que te permiten verificar tus conversiones entre bases numéricas. Úsalas para practicar y verificar tus resultados.</p>
+            </div>
+
+            <div class="info-box">
+                <strong>Práctica Constante</strong>
+                <p>La mejor manera de dominar las conversiones entre bases numéricas es practicar regularmente. Intenta hacer al menos 5 conversiones diarias de diferentes tipos.</p>
+            </div>
+
+            <div class="info-box">
+                <strong>Programación</strong>
+                <p>Si estás aprendiendo programación, la mayoría de los lenguajes tienen funciones integradas para convertir entre bases. En Python, por ejemplo: <code>bin()</code>, <code>oct()</code>, <code>hex()</code>, y <code>int()</code>.</p>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">🔢 Sistemas de Numeración en Informática</p>
+        <p>Material educativo sobre conversión entre bases numéricas</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">© 2026 - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Animación suave al hacer scroll
+        const sections = document.querySelectorAll('.section');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Efecto hover en las tablas
+        const tables = document.querySelectorAll('table');
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+
+        // Copiar código al hacer clic en las fórmulas
+        const formulas = document.querySelectorAll('.formula');
+        formulas.forEach(formula => {
+            formula.style.cursor = 'pointer';
+            formula.title = 'Clic para copiar';
+            
+            formula.addEventListener('click', function() {
+                const text = this.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalBg = this.style.background;
+                    this.style.background = 'rgba(74, 222, 128, 0.3)';
+                    
+                    setTimeout(() => {
+                        this.style.background = originalBg;
+                    }, 500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
