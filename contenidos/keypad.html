@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KeyPad con Arduino — Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style/style_keypad.css">
+<link rel="stylesheet" href="../img/imagee.png">
+</head>
+<body>
+<main>
+  <div class="hero">
+    <div class="badge">Arduino · Electrónica · Tutorial</div>
+    <h1>Teclado <span>KeyPad</span><br>con Arduino</h1>
+    <p class="hero-desc">Aprende a configurar y utilizar un teclado matricial de 4×4 con Arduino, implementando un sistema de contraseña con pantalla LCD.</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Sección 1: Introducción -->
+    <div class="section">
+      <div class="section-header">
+        <div class="step-num">01</div>
+        <h2>¿Qué es el teclado KeyPad?</h2>
+      </div>
+
+      <p>El teclado matricial KeyPad es un periférico de entrada compuesto por una matriz de botones organizados en <strong>4 filas y 4 columnas</strong>, lo que da un total de 16 teclas. Su funcionamiento se basa en la técnica de exploración de matriz (matrix scanning): Arduino activa cada fila y detecta qué columna responde para identificar la tecla presionada.</p>
+
+      <div class="info-card">
+        <p>💡 Gracias a la técnica matricial, se controlan 16 botones usando solo <strong>8 pines digitales</strong> del microcontrolador (4 para filas + 4 para columnas).</p>
+      </div>
+
+      <div class="keypad-visual">
+        <span class="keypad-label">Vista del teclado matricial 4×4</span>
+        <div class="keypad-grid">
+          <div class="key">1</div><div class="key">2</div><div class="key">3</div><div class="key letter">A</div>
+          <div class="key">4</div><div class="key">5</div><div class="key">6</div><div class="key letter">B</div>
+          <div class="key">7</div><div class="key">8</div><div class="key">9</div><div class="key letter">C</div>
+          <div class="key special">*</div><div class="key">0</div><div class="key special">#</div><div class="key letter">D</div>
+        </div>
+        <span class="keypad-label">— Haz clic en las teclas para explorar —</span>
+      </div>
+
+      <a href="#" class="tinkercad-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Ver ejemplo en Tinkercad
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Sección 2: Librería -->
+    <div class="section">
+      <div class="section-header">
+        <div class="step-num">02</div>
+        <h2>Instalación de la librería</h2>
+      </div>
+
+      <p>Para comunicarse con el teclado KeyPad, es necesario instalar la librería <code style="color:var(--accent);font-family:'Space Mono',monospace;">Keypad.h</code>. Puedes instalarla desde el <em>Gestor de Librerías</em> del IDE de Arduino buscando "Keypad by Mark Stanley".</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-title">main.ino</span>
+          <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        </div>
+        <pre><span class="cm">// Incluir la librería Keypad al inicio del sketch</span>
+<span class="kw">#include</span> &lt;<span class="tp">Keypad.h</span>&gt;
+<span class="kw">#include</span> &lt;<span class="tp">LiquidCrystal_I2C.h</span>&gt;</pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Sección 3: Mapeo -->
+    <div class="section">
+      <div class="section-header">
+        <div class="step-num">03</div>
+        <h2>Configuración y mapeo del teclado</h2>
+      </div>
+
+      <p>Para que Arduino reconozca cada tecla, es necesario definir tres elementos: el <strong>mapa de teclas</strong> (qué carácter corresponde a cada posición), los <strong>pines de filas y columnas</strong> conectados al Arduino, y finalmente crear un <strong>objeto de la clase Keypad</strong> que gestionará toda la comunicación.</p>
+
+      <div class="pins-diagram">
+        <div class="pin-group">
+          <h3>Pines de Filas (ROWS)</h3>
+          <div class="pin-item"><span class="pin-badge row">A1</span><span class="pin-label">→ Fila 1</span></div>
+          <div class="pin-item"><span class="pin-badge row">A0</span><span class="pin-label">→ Fila 2</span></div>
+          <div class="pin-item"><span class="pin-badge row">13</span><span class="pin-label">→ Fila 3</span></div>
+          <div class="pin-item"><span class="pin-badge row">12</span><span class="pin-label">→ Fila 4</span></div>
+        </div>
+        <div class="pin-group">
+          <h3>Pines de Columnas (COLS)</h3>
+          <div class="pin-item"><span class="pin-badge col">11</span><span class="pin-label">→ Columna 1</span></div>
+          <div class="pin-item"><span class="pin-badge col">10</span><span class="pin-label">→ Columna 2</span></div>
+          <div class="pin-item"><span class="pin-badge col">9</span> <span class="pin-label">→ Columna 3</span></div>
+          <div class="pin-item"><span class="pin-badge col">8</span> <span class="pin-label">→ Columna 4</span></div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-title">configuracion_keypad.ino</span>
+          <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        </div>
+        <pre><span class="cm">// Definir dimensiones del teclado</span>
+<span class="kw">const</span> <span class="tp">byte</span> FILAS = <span class="num">4</span>;
+<span class="kw">const</span> <span class="tp">byte</span> COLUMNAS = <span class="num">4</span>;
+
+<span class="cm">// Mapa de caracteres: cada posición corresponde a una tecla</span>
+<span class="tp">char</span> teclas[FILAS][COLUMNAS] = {
+  {<span class="str">'1'</span>,<span class="str">'2'</span>,<span class="str">'3'</span>,<span class="str">'A'</span>},
+  {<span class="str">'4'</span>,<span class="str">'5'</span>,<span class="str">'6'</span>,<span class="str">'B'</span>},
+  {<span class="str">'7'</span>,<span class="str">'8'</span>,<span class="str">'9'</span>,<span class="str">'C'</span>},
+  {<span class="str">'*'</span>,<span class="str">'0'</span>,<span class="str">'#'</span>,<span class="str">'D'</span>}
+};
+
+<span class="cm">// Asignación de pines físicos en el Arduino</span>
+<span class="tp">byte</span> pinesFilas[FILAS]      = {A1, A0, <span class="num">13</span>, <span class="num">12</span>};
+<span class="tp">byte</span> pinesColumnas[COLUMNAS] = {<span class="num">11</span>, <span class="num">10</span>, <span class="num">9</span>, <span class="num">8</span>};
+
+<span class="cm">// Crear el objeto teclado usando la clase Keypad</span>
+<span class="tp">Keypad</span> teclado = <span class="fn">Keypad</span>(<span class="fn">makeKeymap</span>(teclas),
+                         pinesFilas,
+                         pinesColumnas,
+                         FILAS, COLUMNAS);</pre>
+      </div>
+
+      <div class="info-card purple">
+        <p>🔧 <strong>makeKeymap()</strong> convierte la matriz bidimensional de caracteres al formato interno que la librería Keypad necesita para asociar cada combinación de fila/columna con su carácter correspondiente.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Sección 4: Lectura de teclas -->
+    <div class="section">
+      <div class="section-header">
+        <div class="step-num">04</div>
+        <h2>Lectura de teclas y visualización en LCD</h2>
+      </div>
+
+      <p>El método <code style="color:var(--accent);font-family:'Space Mono',monospace;">teclado.getKey()</code> devuelve el carácter de la tecla presionada, o <code style="color:var(--muted);font-family:'Space Mono',monospace;">NO_KEY</code> si no se presionó ninguna. La condición <code style="color:var(--accent3);font-family:'Space Mono',monospace;">if(letra)</code> evalúa el resultado: en C++, un carácter nulo equivale a <em>falso</em>, por lo que el bloque interno solo se ejecuta cuando el usuario presiona efectivamente una tecla.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-title">loop.ino</span>
+          <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        </div>
+        <pre><span class="kw">void</span> <span class="fn">loop</span>() {
+
+  <span class="cm">// Leer la tecla presionada (devuelve '\0' si no hay ninguna)</span>
+  <span class="tp">char</span> letra = teclado.<span class="fn">getKey</span>();
+
+  <span class="cm">// Solo ejecutar si se presionó una tecla válida</span>
+  <span class="kw">if</span> (letra) {
+    lcd.<span class="fn">setCursor</span>(i, <span class="num">1</span>);  <span class="cm">// Posicionar cursor en la fila inferior</span>
+    lcd.<span class="fn">print</span>(letra);       <span class="cm">// Mostrar el carácter en la LCD</span>
+    user[i] = letra;        <span class="cm">// Guardar el carácter en el arreglo</span>
+    i++;                    <span class="cm">// Avanzar a la siguiente posición</span>
+  }
+
+}</pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Sección 5: Sistema de contraseña -->
+    <div class="section">
+      <div class="section-header">
+        <div class="step-num">05</div>
+        <h2>Sistema de contraseña</h2>
+      </div>
+
+      <p>El sistema de contraseña compara lo que el usuario ingresa con una contraseña predefinida. Se utilizan dos arreglos de caracteres: uno que almacena la <strong>contraseña correcta</strong> y otro que recoge los <strong>caracteres ingresados</strong> por el usuario en tiempo real. La función <code style="color:var(--accent);font-family:'Space Mono',monospace;">strcmp()</code> de la librería estándar de C compara ambas cadenas de texto.</p>
+
+      <div class="info-card">
+        <p>📌 <strong>¿Por qué longitud 4?</strong> La contraseña <code style="font-family:'Space Mono',monospace;">"123"</code> ocupa 3 caracteres más el carácter nulo de terminación <code style="font-family:'Space Mono',monospace;">'\0'</code> que C agrega automáticamente, totalizando 4 posiciones en memoria.</p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-title">variables_globales.ino</span>
+          <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        </div>
+        <pre><span class="cm">// Contraseña correcta (3 caracteres + terminador nulo '\0')</span>
+<span class="tp">char</span> password[<span class="num">4</span>] = <span class="str">"123"</span>;
+
+<span class="cm">// Arreglo para almacenar los caracteres ingresados por el usuario</span>
+<span class="tp">char</span> user[<span class="num">4</span>];
+
+<span class="cm">// Índice para rastrear la posición actual de ingreso</span>
+<span class="tp">int</span> i = <span class="num">0</span>;</pre>
+      </div>
+
+      <p>Una vez que el usuario ha ingresado 3 caracteres (cuando <code style="color:var(--accent);font-family:'Space Mono',monospace;">i == 3</code>), se realiza la comparación. La función <code style="color:var(--accent3);font-family:'Space Mono',monospace;">strcmp()</code> devuelve <code style="color:var(--accent3);font-family:'Space Mono',monospace;">0</code> si ambas cadenas son idénticas, o un valor distinto de cero si difieren.</p>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-title">validacion_contrasena.ino</span>
+          <button class="copy-btn" onclick="copyCode(this)">COPIAR</button>
+        </div>
+        <pre><span class="kw">if</span> (i == <span class="num">3</span>) {
+  lcd.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">1</span>);
+
+  <span class="cm">// strcmp() devuelve 0 si las cadenas son iguales</span>
+  <span class="kw">if</span> (<span class="fn">strcmp</span>(password, user) == <span class="num">0</span>) {
+    lcd.<span class="fn">print</span>(<span class="str">"CORRECTO"</span>);
+    <span class="cm">// Aquí puedes activar un LED verde, servo, etc.</span>
+
+  } <span class="kw">else</span> {
+    lcd.<span class="fn">print</span>(<span class="str">"INCORRECTO"</span>);
+    <span class="fn">digitalWrite</span>(A2, HIGH);  <span class="cm">// Encender LED de alerta</span>
+  }
+
+  <span class="cm">// Reiniciar el índice y limpiar la pantalla después de 2 segundos</span>
+  i = <span class="num">0</span>;
+  <span class="fn">delay</span>(<span class="num">2000</span>);
+  <span class="fn">digitalWrite</span>(A2, LOW);
+  lcd.<span class="fn">clear</span>();
+}</pre>
+      </div>
+
+      <!-- Simulación LCD -->
+      <div class="demo-card">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Vista previa de la pantalla LCD</p>
+        <div class="lcd-screen">
+          <div class="lcd-row top">CONTRASENA:</div>
+          <div class="lcd-row bot" id="lcdDisplay">*<span class="cursor-blink"></span></div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--muted);margin:0;">Usa el teclado de arriba para simular la entrada</p>
+      </div>
+
+      <!-- Flujo de lógica -->
+      <div class="info-card success">
+        <p>✅ <strong>Flujo completo del sistema:</strong></p>
+      </div>
+
+      <div class="flow">
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot"></div>
+            <div class="flow-connector"></div>
+          </div>
+          <div class="flow-content">
+            <h4>Usuario presiona una tecla</h4>
+            <p>getKey() detecta el carácter y lo almacena en user[i], incrementando el índice.</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot"></div>
+            <div class="flow-connector"></div>
+          </div>
+          <div class="flow-content">
+            <h4>Se verifican 3 caracteres ingresados (i == 3)</h4>
+            <p>El sistema procede a la comparación una vez completa la contraseña.</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot success"></div>
+            <div class="flow-connector"></div>
+          </div>
+          <div class="flow-content">
+            <h4 style="color:var(--success)">strcmp() == 0 → Contraseña correcta</h4>
+            <p>Se muestra "CORRECTO" y se activa el dispositivo de acceso (LED verde, servo, relé, etc.).</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <div class="flow-line">
+            <div class="flow-dot danger"></div>
+          </div>
+          <div class="flow-content">
+            <h4 style="color:var(--danger)">strcmp() != 0 → Contraseña incorrecta</h4>
+            <p>Se muestra "INCORRECTO" y se activa la alarma (LED rojo, buzzer, etc.).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  // Interactive keypad demo
+  const keys = document.querySelectorAll('.key');
+  const lcdDisplay = document.getElementById('lcdDisplay');
+  let inputChars = [];
+
+  const password = "123";
+
+  keys.forEach(key => {
+    key.addEventListener('click', function() {
+      const char = this.textContent.trim();
+
+      // Visual feedback
+      this.style.background = 'rgba(0,229,255,0.15)';
+      this.style.borderColor = 'var(--accent)';
+      setTimeout(() => {
+        this.style.background = '';
+        this.style.borderColor = '';
+      }, 200);
+
+      if (inputChars.length < 3) {
+        inputChars.push(char);
+        const display = '*'.repeat(inputChars.length);
+        lcdDisplay.innerHTML = display + '<span class="cursor-blink"></span>';
+      }
+
+      if (inputChars.length === 3) {
+        const entered = inputChars.join('');
+        setTimeout(() => {
+          if (entered === password) {
+            lcdDisplay.innerHTML = '<span style="color:#4ade80">CORRECTO ✓</span>';
+          } else {
+            lcdDisplay.innerHTML = '<span style="color:#f87171">INCORRECTO ✗</span>';
+          }
+          setTimeout(() => {
+            inputChars = [];
+            lcdDisplay.innerHTML = '<span class="cursor-blink"></span>';
+          }, 2000);
+        }, 300);
+      }
+    });
+  });
+
+  // Copy button functionality
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '¡COPIADO!';
+      btn.style.color = 'var(--success)';
+      btn.style.borderColor = 'var(--success)';
+      setTimeout(() => {
+        btn.textContent = 'COPIAR';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

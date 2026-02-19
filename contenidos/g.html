@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Convertidor Eléctrico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 30px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 350px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            margin-bottom: 15px;
+        }
+        #resultado {
+            font-weight: bold;
+            margin-top: 10px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Convertidor Eléctrico</h2>
+
+    <input type="number" id="valor" placeholder="Ingrese el valor">
+
+    <select id="tipo">
+        <option value="a_ma">Amperios → Miliamperios</option>
+        <option value="ma_a">Miliamperios → Amperios</option>
+        <option value="ohm_kohm">Ohmios → Kiloohmios</option>
+        <option value="kohm_ohm">Kiloohmios → Ohmios</option>
+    </select>
+
+    <button onclick="convertir()">Convertir</button>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+    function convertir() {
+        let valor = parseFloat(document.getElementById("valor").value);
+        let tipo = document.getElementById("tipo").value;
+        let resultado = 0;
+
+        if (isNaN(valor)) {
+            document.getElementById("resultado").innerText = "Ingrese un número válido";
+            return;
+        }
+
+        switch (tipo) {
+            case "a_ma":
+                resultado = valor * 1000;
+                document.getElementById("resultado").innerText = valor + " A = " + resultado + " mA";
+                break;
+
+            case "ma_a":
+                resultado = valor / 1000;
+                document.getElementById("resultado").innerText = valor + " mA = " + resultado + " A";
+                break;
+
+            case "ohm_kohm":
+                resultado = valor / 1000;
+                document.getElementById("resultado").innerText = valor + " Ω = " + resultado + " kΩ";
+                break;
+
+            case "kohm_ohm":
+                resultado = valor * 1000;
+                document.getElementById("resultado").innerText = valor + " kΩ = " + resultado + " Ω";
+                break;
+        }
+    }
+</script>
+
+</body>
+</html>

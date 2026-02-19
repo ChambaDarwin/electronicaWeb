@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Circuito en Serie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style/style_serie.css">
+  <link rel="icon" type="image/x-icon" href="../img/imagee.png">
+</head>
+<body>
+
+<header>
+  <h1>⚡ Circuito en Serie</h1>
+  <p class="subtitle">Propiedades, fórmulas y conversión de unidades eléctricas</p>
+</header>
+
+<div class="container">
+
+  <!-- Sección 1: Propiedades -->
+  <div class="section">
+    <h2>Características de un circuito en serie</h2>
+    <p>En un circuito en serie, todos los componentes se conectan uno tras otro formando un único camino por el que circula la electricidad. Esto da lugar a tres propiedades fundamentales:</p>
+
+    <div class="props-grid">
+      <div class="prop-card">
+        <div class="prop-icon">⚡</div>
+        <div class="prop-title">Corriente (I)</div>
+        <p>La corriente eléctrica es <strong>igual en todos los componentes</strong> del circuito, ya que solo existe un camino por el que pueden circular los electrones. Se mide en <strong>amperios (A)</strong>.</p>
+      </div>
+      <div class="prop-card">
+        <div class="prop-icon">🔋</div>
+        <div class="prop-title">Voltaje (V)</div>
+        <p>El voltaje —también llamado tensión o diferencia de potencial— es <strong>diferente en cada componente</strong>. La suma de los voltajes individuales debe ser igual al voltaje total de la fuente. Se mide en <strong>voltios (V)</strong>.</p>
+      </div>
+      <div class="prop-card">
+        <div class="prop-icon">🔌</div>
+        <div class="prop-title">Resistencia (R)</div>
+        <p>La resistencia equivalente total es la <strong>suma de todas las resistencias individuales</strong> del circuito. A mayor resistencia total, menor será la corriente que circula. Se mide en <strong>ohmios (Ω)</strong>.</p>
+      </div>
+    </div>
+
+   
+  </div>
+
+  <!-- Sección 2: Fórmulas -->
+  <div class="section">
+    <h2>Fórmulas fundamentales</h2>
+    <p>Estas son las ecuaciones que permiten calcular las tres magnitudes eléctricas básicas en un circuito en serie, todas derivadas de la <strong>Ley de Ohm</strong>:</p>
+
+    <div class="formulas-grid">
+      <div class="formula-box">
+        <div class="formula-label">Corriente</div>
+        <div class="formula-eq">I = V / R</div>
+        <div class="formula-desc">Amperios (A) = Voltios ÷ Ohmios</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-label">Voltaje</div>
+        <div class="formula-eq">V = I × R</div>
+        <div class="formula-desc">Voltios (V) = Amperios × Ohmios</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-label">Resistencia</div>
+        <div class="formula-eq">R = V / I</div>
+        <div class="formula-desc">Ohmios (Ω) = Voltios ÷ Amperios</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-label">R. equivalente en serie</div>
+        <div class="formula-eq">Rt = R₁ + R₂ + …</div>
+        <div class="formula-desc">Suma de todas las resistencias del circuito</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>💡 La Ley de Ohm</strong>
+      Formulada por Georg Simon Ohm en 1827, establece que la corriente que circula por un conductor es directamente proporcional al voltaje aplicado e inversamente proporcional a su resistencia. Es la base del análisis de circuitos eléctricos.
+    </div>
+  </div>
+
+  <!-- Sección 3: Conversiones -->
+  <div class="section">
+    <h2>Conversión de unidades eléctricas</h2>
+    <p>En electrónica es frecuente trabajar con múltiplos y submúltiplos de las unidades base. Las conversiones más comunes son las siguientes:</p>
+
+    <h3>Resistencia: ohmios y kiloohmios</h3>
+    <p>El kiloohmio (kΩ) equivale a 1 000 ohmios. Se utiliza cuando los valores de resistencia son muy grandes, lo que simplifica la lectura y escritura de los datos.</p>
+
+    <table class="conv-table">
+      <thead>
+        <tr><th>Desde</th><th></th><th>Hasta</th><th>Operación</th><th>Ejemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ohmios (Ω)</td>
+          <td class="arrow">→</td>
+          <td>Kiloohmios (kΩ)</td>
+          <td>÷ 1 000</td>
+          <td>4 700 Ω = 4,7 kΩ</td>
+        </tr>
+        <tr>
+          <td>Kiloohmios (kΩ)</td>
+          <td class="arrow">→</td>
+          <td>Ohmios (Ω)</td>
+          <td>× 1 000</td>
+          <td>10 kΩ = 10 000 Ω</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Corriente: amperios y miliamperios</h3>
+    <p>El miliamperio (mA) es una milésima parte del amperio. Se usa en circuitos de baja potencia, como los que se trabajan con Arduino, donde las corrientes son muy pequeñas.</p>
+
+    <table class="conv-table">
+      <thead>
+        <tr><th>Desde</th><th></th><th>Hasta</th><th>Operación</th><th>Ejemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Amperios (A)</td>
+          <td class="arrow">→</td>
+          <td>Miliamperios (mA)</td>
+          <td>× 1 000</td>
+          <td>0,02 A = 20 mA</td>
+        </tr>
+        <tr>
+          <td>Miliamperios (mA)</td>
+          <td class="arrow">→</td>
+          <td>Amperios (A)</td>
+          <td>÷ 1 000</td>
+          <td>500 mA = 0,5 A</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Sección 4: Calculadora -->
+  <div class="section">
+    <h2>Convertidor de unidades eléctricas</h2>
+    <p>Introduce un valor numérico, selecciona el tipo de conversión y presiona el botón para obtener el resultado de forma instantánea.</p>
+
+    <div class="calc-wrapper">
+      <div class="calc-field">
+        <label for="valor">Valor a convertir</label>
+        <input type="number" id="valor" placeholder="Ej: 4700" step="any" />
+      </div>
+
+      <div class="calc-field">
+        <label for="tipo">Tipo de conversión</label>
+        <select id="tipo">
+          <option value="a_ma">Amperios (A) → Miliamperios (mA)</option>
+          <option value="ma_a">Miliamperios (mA) → Amperios (A)</option>
+          <option value="ohm_kohm">Ohmios (Ω) → Kiloohmios (kΩ)</option>
+          <option value="kohm_ohm">Kiloohmios (kΩ) → Ohmios (Ω)</option>
+        </select>
+      </div>
+
+      <button class="calc-btn" onclick="convertir()">⇄ Convertir</button>
+
+      <div class="resultado" id="resultado"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Guía de Circuitos en Serie · Conceptos de electrónica básica</p>
+</footer>
+
+<script>
+  function convertir() {
+    const valor = parseFloat(document.getElementById("valor").value);
+    const tipo  = document.getElementById("tipo").value;
+    const resultDiv = document.getElementById("resultado");
+
+    if (isNaN(valor)) {
+      resultDiv.textContent = "⚠ Por favor, ingresa un número válido.";
+      resultDiv.classList.add("visible");
+      return;
+    }
+
+    let resultado, texto;
+
+    switch (tipo) {
+      case "a_ma":
+        resultado = valor * 1000;
+        texto = `${valor} A = ${resultado.toLocaleString('es-ES')} mA`;
+        break;
+      case "ma_a":
+        resultado = valor / 1000;
+        texto = `${valor} mA = ${resultado} A`;
+        break;
+      case "ohm_kohm":
+        resultado = valor / 1000;
+        texto = `${valor.toLocaleString('es-ES')} Ω = ${resultado} kΩ`;
+        break;
+      case "kohm_ohm":
+        resultado = valor * 1000;
+        texto = `${valor} kΩ = ${resultado.toLocaleString('es-ES')} Ω`;
+        break;
+    }
+
+    resultDiv.textContent = "✔ " + texto;
+    resultDiv.classList.add("visible");
+  }
+
+  // Permitir convertir al presionar Enter
+  document.getElementById("valor").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") convertir();
+  });
+</script>
+
+</body>
+</html>

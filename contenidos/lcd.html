@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pantalla LCD 16x2 con Arduino</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+ <link rel="stylesheet" href="../style/style_lcd.css">
+ <link rel="icon" type="image/x-icon" href="../img/imagee.png">
+</head>
+<body>
+
+<header>
+  <h1>🖥️ Pantalla LCD 16x2</h1>
+  <p class="subtitle">Guía completa de configuración y programación con Arduino</p>
+</header>
+
+<div class="container">
+
+  <!-- Sección 1: Simulación -->
+  <div class="section">
+    <h2>Simulación del circuito</h2>
+    <p>Antes de armar el circuito físico, es recomendable probarlo en un entorno virtual. En la simulación podrás observar la pantalla LCD en funcionamiento y verificar que todas las conexiones sean correctas.</p>
+    <div class="button-container">
+      <a href="#" class="sim-button">▶ Ver simulación del circuito</a>
+    </div>
+  </div>
+
+  <!-- Sección 2: Pines -->
+  <div class="section">
+    <h2>Configuración de pines del LCD</h2>
+    <p>La pantalla LCD 16x2 cuenta con <strong>16 pines</strong>. Al posicionar el cursor sobre cada uno en el simulador, se muestra su función. A continuación se detalla la conexión correcta de cada pin:</p>
+
+    <table class="pin-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Conexión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="pin-num">1</td><td class="pin-label">GND</td><td class="pin-conn">Terminal negativa (tierra)</td></tr>
+        <tr><td class="pin-num">2</td><td class="pin-label">VCC</td><td class="pin-conn">Terminal positiva (5V)</td></tr>
+        <tr><td class="pin-num">3</td><td class="pin-label">V0</td><td class="pin-conn">Control de contraste → conectar a terminal negativa (GND)</td></tr>
+        <tr><td class="pin-num">4</td><td class="pin-label">RS</td><td class="pin-conn">Selección de registro → pin digital <strong>7</strong></td></tr>
+        <tr><td class="pin-num">5</td><td class="pin-label">RW</td><td class="pin-conn">Lectura/Escritura → terminal negativa (GND) para modo escritura</td></tr>
+        <tr><td class="pin-num">6</td><td class="pin-label">E (Enable)</td><td class="pin-conn">Habilitación → pin digital <strong>6</strong></td></tr>
+        <tr><td class="pin-num">7–10</td><td class="pin-label">DB0–DB3</td><td class="pin-conn">No se utilizan en modo de 4 bits</td></tr>
+        <tr><td class="pin-num">11</td><td class="pin-label">DB4</td><td class="pin-conn">Pin digital <strong>5</strong></td></tr>
+        <tr><td class="pin-num">12</td><td class="pin-label">DB5</td><td class="pin-conn">Pin digital <strong>4</strong></td></tr>
+        <tr><td class="pin-num">13</td><td class="pin-label">DB6</td><td class="pin-conn">Pin digital <strong>3</strong></td></tr>
+        <tr><td class="pin-num">14</td><td class="pin-label">DB7</td><td class="pin-conn">Pin digital <strong>2</strong></td></tr>
+        <tr><td class="pin-num">15</td><td class="pin-label">LED Ánodo (A)</td><td class="pin-conn">Terminal positiva (5V) — retroiluminación</td></tr>
+        <tr><td class="pin-num">16</td><td class="pin-label">LED Cátodo (K)</td><td class="pin-conn">Terminal negativa a través de una resistencia de <strong>220 Ω</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <strong>💡 Nota importante</strong>
+      El pin <strong>RW</strong> se conecta a GND para mantener el LCD en modo escritura permanente, que es el modo que se utiliza en la mayoría de los proyectos con Arduino. Si se conectara a 5V, el LCD entraría en modo lectura.
+    </div>
+  </div>
+
+  <!-- Sección 3: Programación -->
+  <div class="section">
+    <h2>Programación del LCD</h2>
+
+    <div class="process-steps">
+      <div class="step"><strong>Paso 1 — Incluir la librería:</strong> La librería <code>LiquidCrystal</code> ya viene integrada en el IDE de Arduino, por lo que no es necesario instalarla.</div>
+      <div class="step"><strong>Paso 2 — Crear el objeto LCD:</strong> Se crea un objeto indicando los pines en el siguiente orden: RS, E, DB4, DB5, DB6, DB7.</div>
+      <div class="step"><strong>Paso 3 — Inicializar en <code>setup()</code>:</strong> Se llama a <code>lcd.begin()</code> indicando el número de columnas y filas.</div>
+      <div class="step"><strong>Paso 4 — Mostrar contenido en <code>loop()</code>:</strong> Se posiciona el cursor y se imprime el texto deseado.</div>
+    </div>
+
+    <h2 style="margin-top:2rem;">Incluir la librería</h2>
+    <pre><code>#include &lt;LiquidCrystal.h&gt;</code></pre>
+
+    <h2>Crear el objeto LCD</h2>
+    <p>Se instancia el objeto <code>lcd</code> pasando los pines en el orden: <strong>RS, E, DB4, DB5, DB6, DB7</strong>.</p>
+    <pre><code>LiquidCrystal lcd(7, 6, 5, 4, 3, 2);</code></pre>
+
+    <h2>Función <code>void setup()</code></h2>
+    <p>Dentro de esta función se inicializa la pantalla. Los parámetros indican la cantidad de <strong>columnas</strong> y <strong>filas</strong> del LCD.</p>
+    <pre><code>void setup() {
+  lcd.begin(16, 2); // 16 columnas, 2 filas
+}</code></pre>
+
+    <h2>Función <code>void loop()</code></h2>
+    <p>Para mostrar un mensaje, primero se posiciona el cursor con <code>lcd.setCursor(columna, fila)</code>. Las posiciones comienzan desde <strong>cero</strong>, tanto en columnas como en filas.</p>
+    <pre><code>void loop() {
+  lcd.setCursor(2, 0);      // Columna 2, fila 0 (primera fila)
+  lcd.print("Hola mundo"); // Muestra el texto en pantalla
+}</code></pre>
+
+    <div class="info-box">
+      <strong>📐 Sistema de coordenadas</strong>
+      La esquina superior izquierda del LCD corresponde a la posición (0, 0). El primer parámetro es la <strong>columna</strong> (0 a 15) y el segundo es la <strong>fila</strong> (0 para la primera fila, 1 para la segunda).
+    </div>
+  </div>
+
+  <!-- Sección 4: Funciones -->
+  <div class="section">
+    <h2>Funciones principales de la librería LiquidCrystal</h2>
+    <p>A continuación se presentan las funciones más utilizadas al programar una pantalla LCD 16x2 con Arduino:</p>
+
+    <table class="func-table">
+      <thead>
+        <tr>
+          <th>Función</th>
+          <th>Sintaxis</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="func-name">Inicializar</td><td><code>lcd.begin(16, 2);</code></td><td>Inicializa el LCD con 16 columnas y 2 filas.</td></tr>
+        <tr><td class="func-name">Limpiar pantalla</td><td><code>lcd.clear();</code></td><td>Borra todo el contenido del LCD y regresa el cursor al origen.</td></tr>
+        <tr><td class="func-name">Posicionar cursor</td><td><code>lcd.setCursor(col, fila);</code></td><td>Mueve el cursor a la columna y fila indicadas.</td></tr>
+        <tr><td class="func-name">Imprimir texto</td><td><code>lcd.print("Texto");</code></td><td>Muestra texto o valores numéricos en la pantalla.</td></tr>
+        <tr><td class="func-name">Mostrar cursor</td><td><code>lcd.cursor();</code></td><td>Activa la visualización del cursor.</td></tr>
+        <tr><td class="func-name">Ocultar cursor</td><td><code>lcd.noCursor();</code></td><td>Oculta el cursor de la pantalla.</td></tr>
+        <tr><td class="func-name">Cursor parpadeante</td><td><code>lcd.blink();</code></td><td>Activa el parpadeo del cursor.</td></tr>
+        <tr><td class="func-name">Desactivar parpadeo</td><td><code>lcd.noBlink();</code></td><td>Detiene el parpadeo del cursor.</td></tr>
+        <tr><td class="func-name">Desplazar izquierda</td><td><code>lcd.scrollDisplayLeft();</code></td><td>Desplaza el contenido una posición hacia la izquierda.</td></tr>
+        <tr><td class="func-name">Desplazar derecha</td><td><code>lcd.scrollDisplayRight();</code></td><td>Desplaza el contenido una posición hacia la derecha.</td></tr>
+        <tr><td class="func-name">Crear carácter</td><td><code>lcd.createChar(num, datos);</code></td><td>Define un carácter personalizado (posiciones 0 a 7).</td></tr>
+        <tr><td class="func-name">Mostrar carácter</td><td><code>lcd.write(num);</code></td><td>Dibuja en pantalla un carácter previamente creado.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Sección 5: Emojis / caracteres personalizados -->
+  <div class="section">
+    <h2>Caracteres personalizados (íconos y emojis)</h2>
+    <p>El LCD 16x2 permite crear hasta <strong>8 caracteres personalizados</strong> (posiciones del 0 al 7). Cada carácter se define como un arreglo de 8 bytes, donde cada byte representa una fila de 5 píxeles. Los bits en <code>1</code> encienden el píxel y los bits en <code>0</code> lo apagan.</p>
+
+    <p>A continuación se muestran algunos íconos predefinidos que puedes usar:</p>
+
+    <div class="emoji-grid">
+      <div class="emoji-card">
+        <div class="emoji-name">✕ Equis / Error</div>
+        <code>byte x[8] = {0b00000,0b10001,0b01010,<br>0b00100,0b01010,0b10001,<br>0b00000,0b00000};</code>
+      </div>
+      <div class="emoji-card">
+        <div class="emoji-name">😮 Sorpresa</div>
+        <code>byte sorpresa[8] = {0b00000,0b01010,0b01010,<br>0b00000,0b00100,0b00100,<br>0b00000 ,0b00000};</code>
+      </div>
+      <div class="emoji-card">
+        <div class="emoji-name">🎵 Música</div>
+        <code>byte musica[8] = {0b00001,0b00011,0b00101 <br>,0b01001,0b01011,0b01011,<br>0b11000,0b11000};</code>
+      </div>
+      <div class="emoji-card">
+        <div class="emoji-name">❤️ Corazón</div>
+        <code>byte corazon[8] = {0b00000,0b01010,0b11111 <br>,0b11111,0b01110,0b00100 <br>,0b00000,0b00000};</code>
+      </div>
+      <div class="emoji-card">
+        <div class="emoji-name">🔔 Campana</div>
+        <code>byte campana[8] = {0b00100,0b01110,0b01110 <br>,0b01110,0b01110,0b11111,<br>0b00000,0b00100};</code>
+      </div>
+      <div class="emoji-card">
+        <div class="emoji-name">💙 Corazón izquierdo</div>
+        <code>byte corazonIzq[8] = {0b00110,0b01111,0b11111 <br>,0b11111,0b01111,0b00111, <br>0b00011,0b00001};</code>
+      </div>
+      <div class="emoji-card">
+        <div class="emoji-name">💙 Corazón derecho</div>
+        <code>byte corazonDer[8] = {0b01100,0b11110,0b11111 <br>,0b11111,0b11110,0b11100,<br>0b11000,0b10000};</code>
+      </div>
+    </div>
+
+    <h2 style="margin-top:2rem;">Ejemplo de uso</h2>
+    <p>Para usar un carácter personalizado, primero debes crearlo en <code>setup()</code> con <code>lcd.createChar()</code> y luego dibujarlo en pantalla con <code>lcd.write()</code>:</p>
+
+    <pre><code>#include &lt;LiquidCrystal.h&gt;
+
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+
+byte corazon[8] = {
+  0b00000, 0b01010, 0b11111,
+  0b11111, 0b01110, 0b00100,
+  0b00000, 0b00000
+};
+
+void setup() {
+  lcd.begin(16, 2);
+  lcd.createChar(0, corazon); // Registra el carácter en la posición 0
+}
+
+void loop() {
+  lcd.setCursor(0, 0);
+  lcd.print("Te quiero ");
+  lcd.write(byte(0)); // Muestra el corazón en pantalla
+}</code></pre>
+
+    <div class="info-box">
+      <strong>⚠️ Consideraciones importantes</strong>
+      La función <code>lcd.createChar()</code> debe llamarse dentro de <code>setup()</code>, antes de cualquier <code>lcd.print()</code>. Los índices válidos para los caracteres personalizados van del <strong>0 al 7</strong>. Al llamar a <code>lcd.clear()</code>, los caracteres registrados se conservan en memoria.
+    </div>
+
+    <div class="activity-box">
+      <h3>🛠️ Actividades para practicar</h3>
+      <div class="activity-item">Muestra tu nombre en la primera fila y el nombre de tu ciudad en la segunda fila del LCD.</div>
+      <div class="activity-item">Crea un ícono de corazón personalizado y haz que aparezca al lado de un mensaje.</div>
+      <div class="activity-item">Usa <code>lcd.scrollDisplayLeft()</code> para hacer que un texto largo se desplace de derecha a izquierda como un ticker.</div>
+      <div class="activity-item">Combina los dos mitades del corazón (izquierdo y derecho) para mostrar un corazón grande de 2×1 caracteres en la pantalla.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Guía de LCD 16x2 con Arduino · Elaborada con fines educativos</p>
+</footer>
+
+</body>
+</html>

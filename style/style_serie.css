@@ -1,0 +1,340 @@
+
+    :root {
+      --color-bg: #0a0e27;
+      --color-surface: #151b3d;
+      --color-accent: #4ade80;
+      --color-accent-2: #60a5fa;
+      --color-accent-3: #fb923c;
+      --color-text: #e2e8f0;
+      --color-text-dim: #94a3b8;
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(74,222,128,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(96,165,250,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(251,146,60,0.08) 0%, transparent 50%);
+      z-index: -1;
+      animation: bgShift 20s ease-in-out infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    header {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(74,222,128,0.1), rgba(96,165,250,0.1));
+      border-bottom: 2px solid rgba(74,222,128,0.3);
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--color-text-dim);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .section {
+      background: var(--color-surface);
+      padding: 2.5rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(74,222,128,0.2);
+      animation: fadeInUp 0.8s ease-out backwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+    .section:nth-child(5) { animation-delay: 0.5s; }
+
+    h2 {
+      font-size: 1.7rem;
+      color: var(--color-accent);
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h2::before {
+      content: '▸';
+      color: var(--color-accent-2);
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: var(--color-accent-2);
+      margin: 1.4rem 0 0.6rem;
+      font-weight: 600;
+    }
+
+    p { margin-bottom: 0.9rem; font-size: 1.05rem; }
+
+    strong { color: var(--color-accent); }
+
+    /* Cards de propiedades */
+    .props-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .prop-card {
+      background: rgba(10,14,39,0.5);
+      border-radius: 14px;
+      padding: 1.4rem;
+      border-top: 3px solid var(--color-accent);
+      transition: transform 0.3s;
+    }
+
+    .prop-card:nth-child(2) { border-top-color: var(--color-accent-2); }
+    .prop-card:nth-child(3) { border-top-color: var(--color-accent-3); }
+
+    .prop-card:hover { transform: translateY(-4px); }
+
+    .prop-icon {
+      font-size: 2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .prop-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .prop-card:nth-child(1) .prop-title { color: var(--color-accent); }
+    .prop-card:nth-child(2) .prop-title { color: var(--color-accent-2); }
+    .prop-card:nth-child(3) .prop-title { color: var(--color-accent-3); }
+
+    .prop-card p { font-size: 0.98rem; color: var(--color-text-dim); margin: 0; }
+
+    /* Fórmulas */
+    .formulas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .formula-box {
+      background: rgba(10,14,39,0.6);
+      border: 1px solid rgba(74,222,128,0.25);
+      border-radius: 14px;
+      padding: 1.4rem;
+      text-align: center;
+      transition: box-shadow 0.3s;
+    }
+
+    .formula-box:hover {
+      box-shadow: 0 0 20px rgba(74,222,128,0.2);
+    }
+
+    .formula-label {
+      font-size: 0.9rem;
+      color: var(--color-text-dim);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .formula-eq {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+
+    .formula-desc {
+      font-size: 0.88rem;
+      color: var(--color-text-dim);
+      margin-top: 0.5rem;
+    }
+
+    /* Tabla de conversión */
+    .conv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .conv-table th {
+      background: rgba(74,222,128,0.15);
+      color: var(--color-accent);
+      padding: 0.9rem 1.2rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .conv-table td {
+      padding: 0.8rem 1.2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+    }
+
+    .conv-table tr:last-child td { border-bottom: none; }
+    .conv-table tr:hover td { background: rgba(96,165,250,0.06); }
+
+    .arrow { color: var(--color-accent-2); font-size: 1.2rem; }
+
+    /* Info box */
+    .info-box {
+      background: rgba(74,222,128,0.08);
+      border-left: 4px solid var(--color-accent);
+      padding: 1.2rem 1.5rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 1.05rem;
+    }
+
+    /* Calculadora */
+    .calc-wrapper {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .calc-field {
+      margin-bottom: 1rem;
+    }
+
+    .calc-field label {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--color-text-dim);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .calc-field input,
+    .calc-field select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      font-family: 'Quicksand', sans-serif;
+      background: rgba(10,14,39,0.6);
+      border: 1px solid rgba(74,222,128,0.3);
+      border-radius: 10px;
+      color: var(--color-text);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .calc-field input:focus,
+    .calc-field select:focus {
+      border-color: var(--color-accent);
+    }
+
+    .calc-field select option {
+      background: #151b3d;
+    }
+
+    .calc-btn {
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1.05rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-accent-2), var(--color-accent));
+      color: var(--color-bg);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .calc-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(96,165,250,0.4);
+    }
+
+    .resultado {
+      margin-top: 1.2rem;
+      padding: 1.2rem;
+      background: rgba(74,222,128,0.1);
+      border-left: 4px solid var(--color-accent);
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 1.15rem;
+      color: var(--color-accent);
+      display: none;
+    }
+
+    .resultado.visible { display: block; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--color-text-dim);
+      border-top: 1px solid rgba(74,222,128,0.2);
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-25px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.4rem; }
+      .section { padding: 1.5rem; }
+      .container { padding: 2rem 1rem; }
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      .calc-btn { display: none; }
+    }
