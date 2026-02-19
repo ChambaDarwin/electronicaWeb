@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circuito en Paralelo — Física Eléctrica</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style/style_paralelo.css">
+<link rel="icon" type="image/x-icon" href="../img/imagee.png">
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Física Eléctrica · Circuitos</div>
+    <h1 class="hero-title">Circuito<br>en <em>Paralelo</em></h1>
+    <p class="hero-desc">Una conexión donde la electricidad encuentra múltiples caminos simultáneos. La base de toda instalación eléctrica moderna.</p>
+  </div>
+  <div class="hero-right">
+    <div class="circuit-svg-wrap">
+      <!-- Animated parallel circuit SVG -->
+      <svg viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background card -->
+        <rect x="10" y="10" width="400" height="300" rx="16" fill="white" stroke="#e5ddd0" stroke-width="1.5"/>
+
+        <!-- Label -->
+        <text x="30" y="36" font-family="DM Mono, monospace" font-size="10" fill="#8c7b6e" letter-spacing="2">CIRCUITO PARALELO</text>
+
+        <!-- Main bus wires (top and bottom) -->
+        <!-- Top bus: left to right -->
+        <line x1="50" y1="80" x2="370" y2="80" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Bottom bus -->
+        <line x1="50" y1="240" x2="370" y2="240" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Left vertical (battery side) -->
+        <line x1="50" y1="80" x2="50" y2="240" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Right vertical (return) -->
+        <line x1="370" y1="80" x2="370" y2="240" stroke="#1a1410" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Animated current on top bus -->
+        <line x1="60" y1="80" x2="360" y2="80" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"
+              stroke-dasharray="10 8" stroke-dashoffset="200"
+              style="animation: flow-right 1.8s linear infinite;"/>
+        <!-- Animated current on bottom bus (reverse) -->
+        <line x1="60" y1="240" x2="360" y2="240" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"
+              stroke-dasharray="10 8"
+              style="animation: flow-left 1.8s linear infinite;"/>
+
+        <!-- BATTERY (left side) -->
+        <!-- Battery body -->
+        <rect x="30" y="148" width="38" height="24" rx="4" fill="#1a1410" stroke="#1a1410"/>
+        <text x="34" y="163" font-family="DM Mono" font-size="9" fill="#f59e0b">12V</text>
+        <!-- Battery terminals -->
+        <line x1="49" y1="80" x2="49" y2="148" stroke="#1a1410" stroke-width="2.5"/>
+        <line x1="49" y1="172" x2="49" y2="240" stroke="#1a1410" stroke-width="2.5"/>
+        <!-- Plus/minus -->
+        <text x="20" y="155" font-family="DM Mono" font-size="14" fill="#d4780a" font-weight="bold">+</text>
+        <text x="21" y="178" font-family="DM Mono" font-size="14" fill="#1d4ed8">−</text>
+
+        <!-- BRANCH 1 — Resistor R1 -->
+        <line x1="130" y1="80" x2="130" y2="112" stroke="#1a1410" stroke-width="2"/>
+        <!-- Resistor zigzag -->
+        <polyline points="130,112 120,120 140,128 120,136 140,144 120,152 140,160 130,168" stroke="#c0392b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="130" y1="168" x2="130" y2="240" stroke="#1a1410" stroke-width="2"/>
+        <!-- R1 label -->
+        <rect x="146" y="128" width="32" height="20" rx="4" fill="#fef2f2" stroke="#fecaca"/>
+        <text x="152" y="141" font-family="DM Mono" font-size="10" fill="#c0392b">R₁</text>
+        <!-- Current animation branch 1 -->
+        <line x1="130" y1="86" x2="130" y2="110" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"
+              stroke-dasharray="6 5" style="animation: flow-down 1.2s linear infinite;"/>
+        <line x1="130" y1="170" x2="130" y2="234" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"
+              stroke-dasharray="6 5" style="animation: flow-down 1.2s linear infinite; animation-delay:0.3s;"/>
+
+        <!-- BRANCH 2 — Bulb -->
+        <line x1="210" y1="80" x2="210" y2="126" stroke="#1a1410" stroke-width="2"/>
+        <!-- Bulb circle -->
+        <circle cx="210" cy="148" r="22" fill="#fef3e2" stroke="#d4780a" stroke-width="2" class="bulb-glow"/>
+        <!-- Bulb filament -->
+        <polyline points="201,148 205,142 210,150 215,142 219,148" stroke="#d4780a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="210" y1="170" x2="210" y2="240" stroke="#1a1410" stroke-width="2"/>
+        <!-- Label -->
+        <text x="236" y="152" font-family="DM Mono" font-size="10" fill="#d4780a">💡</text>
+        <!-- Current animation branch 2 -->
+        <line x1="210" y1="86" x2="210" y2="124" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"
+              stroke-dasharray="6 5" style="animation: flow-down 1.2s linear infinite; animation-delay:0.5s;"/>
+        <line x1="210" y1="172" x2="210" y2="234" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"
+              stroke-dasharray="6 5" style="animation: flow-down 1.2s linear infinite; animation-delay:0.7s;"/>
+
+        <!-- BRANCH 3 — Resistor R2 -->
+        <line x1="300" y1="80" x2="300" y2="112" stroke="#1a1410" stroke-width="2"/>
+        <polyline points="300,112 290,120 310,128 290,136 310,144 290,152 310,160 300,168" stroke="#1d4ed8" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="300" y1="168" x2="300" y2="240" stroke="#1a1410" stroke-width="2"/>
+        <rect x="314" y="128" width="32" height="20" rx="4" fill="#eff6ff" stroke="#bfdbfe"/>
+        <text x="320" y="141" font-family="DM Mono" font-size="10" fill="#1d4ed8">R₂</text>
+        <!-- Current animation branch 3 -->
+        <line x1="300" y1="86" x2="300" y2="110" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"
+              stroke-dasharray="6 5" style="animation: flow-down 1.2s linear infinite; animation-delay:1s;"/>
+        <line x1="300" y1="170" x2="300" y2="234" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"
+              stroke-dasharray="6 5" style="animation: flow-down 1.2s linear infinite; animation-delay:1.2s;"/>
+
+        <!-- Node dots -->
+        <circle cx="130" cy="80" r="5" fill="#f59e0b"/>
+        <circle cx="210" cy="80" r="5" fill="#f59e0b"/>
+        <circle cx="300" cy="80" r="5" fill="#f59e0b"/>
+        <circle cx="130" cy="240" r="5" fill="#f59e0b"/>
+        <circle cx="210" cy="240" r="5" fill="#f59e0b"/>
+        <circle cx="300" cy="240" r="5" fill="#f59e0b"/>
+
+        <!-- Legend -->
+        <line x1="30" y1="280" x2="55" y2="280" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="62" y="284" font-family="DM Mono" font-size="9" fill="#8c7b6e" letter-spacing="1">CORRIENTE ELÉCTRICA</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- NAV PILLS -->
+<nav class="nav-pills">
+  <a href="#definicion" class="pill active">Definición</a>
+  <a href="#caracteristicas" class="pill">Características</a>
+  <a href="#leyes" class="pill">Leyes</a>
+  <a href="#comparacion" class="pill">vs. Serie</a>
+  <a href="#calculadora" class="pill">Calculadora</a>
+  <a href="#aplicaciones" class="pill">Aplicaciones</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+  <!-- DEFINITION -->
+  <div id="definicion" style="padding-top:60px; margin-bottom:64px;" class="reveal">
+    <div class="definition">
+      <div class="def-label">DEFINICIÓN</div>
+      <div class="def-body">
+        <h2>¿Qué es un circuito en paralelo?</h2>
+        <p>Un circuito en paralelo es una configuración eléctrica en la que dos o más componentes se conectan entre los mismos dos nodos (puntos de unión), de manera que cada uno forma una trayectoria independiente para el flujo de corriente. A diferencia del circuito en serie, si uno de los componentes falla o se interrumpe, los demás continúan funcionando con normalidad.</p>
+        <br>
+        <p>Este principio es fundamental en las instalaciones eléctricas domésticas, industriales y en la mayoría de los dispositivos electrónicos modernos: permite que cada elemento opere a la misma tensión de la fuente, independientemente de los demás.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARACTERÍSTICAS -->
+  <div id="caracteristicas" style="padding-top:20px;" class="reveal">
+    <div class="section-title">Características principales</div>
+    <p class="section-sub">Las propiedades que definen el comportamiento eléctrico de este tipo de circuito</p>
+
+    <div class="char-grid">
+
+      <div class="char-card voltage">
+        <span class="char-icon">⚡</span>
+        <span class="char-tag">Tensión · Voltaje</span>
+        <h3>Voltaje igual en todas las ramas</h3>
+        <p>Cada componente conectado en paralelo experimenta exactamente la misma diferencia de potencial que la fuente de alimentación. No importa cuántas ramas existan: todas reciben el mismo voltaje.</p>
+        <div class="formula amber">V₁ = V₂ = V₃ = … = Vₜ</div>
+      </div>
+
+      <div class="char-card current">
+        <span class="char-icon">〰️</span>
+        <span class="char-tag">Corriente · Intensidad</span>
+        <h3>La corriente se divide entre ramas</h3>
+        <p>La corriente total que entrega la fuente se distribuye entre todas las ramas del circuito. Cada rama conduce una corriente proporcional a su resistencia: a menor resistencia, mayor corriente.</p>
+        <div class="formula blue">Iₜ = I₁ + I₂ + I₃ + …</div>
+      </div>
+
+      <div class="char-card resistance">
+        <span class="char-icon">🔩</span>
+        <span class="char-tag">Resistencia Equivalente</span>
+        <h3>Resistencia total menor que la mínima</h3>
+        <p>Al agregar más ramas en paralelo, se ofrecen más caminos al flujo de corriente, lo que reduce la resistencia equivalente del circuito. Esta siempre será menor que la resistencia individual más pequeña.</p>
+        <div class="formula green">1/Rₜ = 1/R₁ + 1/R₂ + 1/R₃</div>
+      </div>
+
+      <div class="char-card power">
+        <span class="char-icon">💥</span>
+        <span class="char-tag">Potencia</span>
+        <h3>La potencia total es la suma de cada rama</h3>
+        <p>La potencia disipada por el circuito completo es igual a la suma de la potencia consumida en cada rama de forma individual. También puede calcularse como el producto del voltaje total por la corriente total.</p>
+        <div class="formula red">Pₜ = P₁ + P₂ + P₃ = Vₜ · Iₜ</div>
+      </div>
+
+      <div class="char-card independence">
+        <span class="char-icon">🔀</span>
+        <span class="char-tag">Independencia</span>
+        <h3>Fallo independiente por rama</h3>
+        <p>Si un componente falla, se rompe o se desconecta, únicamente esa rama queda sin funcionamiento. Las demás ramas no se ven afectadas y continúan operando con normalidad. Esta es la razón por la que las instalaciones eléctricas del hogar usan este esquema.</p>
+      </div>
+
+      <div class="char-card conductance">
+        <span class="char-icon">📐</span>
+        <span class="char-tag">Conductancia</span>
+        <h3>Conductancias que se suman</h3>
+        <p>La conductancia (G), inverso de la resistencia, se comporta de manera opuesta: las conductancias individuales de cada rama se suman directamente para obtener la conductancia equivalente total del circuito.</p>
+        <div class="formula" style="background:var(--bg2)">Gₜ = G₁ + G₂ + G₃ = 1/Rₜ</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LEYES -->
+  <div id="leyes" style="padding-top:20px;" class="laws-section reveal">
+    <div class="section-title">Leyes que lo gobiernan</div>
+    <p class="section-sub">Los principios físicos fundamentales que explican su comportamiento</p>
+
+    <div class="law-row">
+      <div class="law-card">
+        <span class="law-num">1ª</span>
+        <h3>1ª Ley de Kirchhoff — Ley de Nodos (KCL)</h3>
+        <p>La suma de todas las corrientes que entran en un nodo es igual a la suma de todas las corrientes que salen de ese mismo nodo. En un circuito paralelo, la corriente total que entrega la fuente es igual a la suma de las corrientes en cada rama.</p>
+        <div class="formula blue">ΣI_entradas = ΣI_salidas</div>
+      </div>
+      <div class="law-card">
+        <span class="law-num">2ª</span>
+        <h3>Ley de Ohm aplicada</h3>
+        <p>En cada rama del circuito paralelo se aplica la Ley de Ohm de forma independiente. Conociendo el voltaje común y la resistencia de cada rama, se puede calcular la corriente que circula por ella con precisión.</p>
+        <div class="formula amber">I_n = V / R_n</div>
+      </div>
+    </div>
+
+    <div class="law-card" style="position:relative;overflow:hidden;">
+      <span class="law-num" style="font-size:56px;">Req</span>
+      <h3>Resistencia equivalente — Caso especial: dos resistores</h3>
+      <p>Cuando solo hay dos resistencias en paralelo, la fórmula general se simplifica a la expresión del "producto sobre la suma". Este atajo facilita los cálculos en los casos más frecuentes de análisis de circuitos.</p>
+      <div class="formula green" style="margin-top:0;">Req = (R₁ × R₂) / (R₁ + R₂)</div>
+      &nbsp;&nbsp;
+      <div class="formula" style="margin-top:0;">Caso n iguales: Req = R / n</div>
+    </div>
+  </div>
+
+  <!-- COMPARACIÓN -->
+  <div id="comparacion" style="padding-top:20px;" class="compare-section reveal">
+    <div class="section-title">Paralelo vs. Serie</div>
+    <p class="section-sub">Diferencias clave entre las dos configuraciones fundamentales</p>
+
+    <div class="compare-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Propiedad</th>
+            <th>⚡ Circuito Paralelo</th>
+            <th>🔗 Circuito Serie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>VOLTAJE</td>
+            <td><span class="badge-good">Igual en todos los elementos</span></td>
+            <td>Se divide entre los elementos</td>
+          </tr>
+          <tr>
+            <td>CORRIENTE</td>
+            <td>Se divide en cada rama</td>
+            <td><span class="badge-neutral">Igual en todos los elementos</span></td>
+          </tr>
+          <tr>
+            <td>RESISTENCIA</td>
+            <td>Menor que la mínima individual</td>
+            <td>Suma directa de todas las resistencias</td>
+          </tr>
+          <tr>
+            <td>FALLO</td>
+            <td><span class="badge-good">Solo afecta a la rama dañada</span></td>
+            <td>Interrumpe todo el circuito</td>
+          </tr>
+          <tr>
+            <td>BRILLO DE FOCOS</td>
+            <td><span class="badge-good">Igual que con fuente directa</span></td>
+            <td>Disminuye al agregar más focos</td>
+          </tr>
+          <tr>
+            <td>USO TÍPICO</td>
+            <td>Instalaciones eléctricas del hogar</td>
+            <td>Luces navideñas antiguas, sensores</td>
+          </tr>
+          <tr>
+            <td>COMPLEJIDAD</td>
+            <td>Mayor (más ramas, más corriente)</td>
+            <td>Menor (un solo camino)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CALCULADORA -->
+  <div id="calculadora" style="padding-top:20px;" class="demo-section reveal">
+    <div class="section-title">Calculadora interactiva</div>
+    <p class="section-sub">Ajusta los valores de resistencia y observa los resultados en tiempo real</p>
+
+    <div class="demo-card">
+      <h3>Tres resistencias en paralelo · 12 V</h3>
+      <p>Fuente de voltaje constante: 12 V — Modifica las resistencias con los controles</p>
+
+      <div class="sliders">
+        <div class="slider-group">
+          <label>Resistencia R₁</label>
+          <span class="slider-val" id="v1">100 Ω</span>
+          <input type="range" class="r1" id="r1" min="10" max="500" value="100" oninput="calculate()">
+        </div>
+        <div class="slider-group">
+          <label>Resistencia R₂</label>
+          <span class="slider-val" id="v2">200 Ω</span>
+          <input type="range" class="r2" id="r2" min="10" max="500" value="200" oninput="calculate()">
+        </div>
+        <div class="slider-group">
+          <label>Resistencia R₃</label>
+          <span class="slider-val" id="v3">150 Ω</span>
+          <input type="range" class="r3" id="r3" min="10" max="500" value="150" oninput="calculate()">
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <div class="result-box highlight">
+          <span class="r-label">Resistencia Equiv.</span>
+          <span class="r-val" id="req">—</span>
+        </div>
+        <div class="result-box">
+          <span class="r-label">Corriente Total</span>
+          <span class="r-val" id="itot">—</span>
+        </div>
+        <div class="result-box">
+          <span class="r-label">Corriente I₁</span>
+          <span class="r-val" id="i1">—</span>
+        </div>
+        <div class="result-box">
+          <span class="r-label">Corriente I₂</span>
+          <span class="r-val" id="i2">—</span>
+        </div>
+        <div class="result-box">
+          <span class="r-label">Corriente I₃</span>
+          <span class="r-val" id="i3">—</span>
+        </div>
+        <div class="result-box">
+          <span class="r-label">Potencia Total</span>
+          <span class="r-val" id="ptot">—</span>
+        </div>
+        <div class="result-box">
+          <span class="r-label">Conductancia Gₜ</span>
+          <span class="r-val" id="gtot">—</span>
+        </div>
+        <div class="result-box">
+          <span class="r-label">Voltaje (cada rama)</span>
+          <span class="r-val">12 V</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APLICACIONES -->
+  <div id="aplicaciones" style="padding-top:20px;" class="apps-section reveal">
+    <div class="section-title">Aplicaciones reales</div>
+    <p class="section-sub">Donde encontramos circuitos en paralelo en la vida cotidiana e industria</p>
+
+    <div class="apps-grid">
+      <div class="app-card">
+        <span class="app-icon">🏠</span>
+        <h4>Instalaciones eléctricas del hogar</h4>
+        <p>Cada tomacorriente y lámpara del hogar está conectada en paralelo, garantizando 120/220 V independiente en cada punto.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-icon">💡</span>
+        <h4>Iluminación LED</h4>
+        <p>Las tiras y paneles LED modernos usan paralelo para que el fallo de un diodo no apague toda la instalación.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-icon">🔋</span>
+        <h4>Baterías en paralelo</h4>
+        <p>Conectar baterías en paralelo multiplica la capacidad de corriente disponible manteniendo el mismo voltaje total.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-icon">💻</span>
+        <h4>Fuentes de computadora (PSU)</h4>
+        <p>Los rieles de voltaje alimentan múltiples componentes simultáneamente en paralelo: CPU, GPU, RAM, discos.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-icon">🌞</span>
+        <h4>Paneles solares</h4>
+        <p>Los arreglos fotovoltaicos conectan paneles en paralelo para aumentar la corriente disponible sin cambiar el voltaje.</p>
+      </div>
+      <div class="app-card">
+        <span class="app-icon">🚗</span>
+        <h4>Sistema eléctrico vehicular</h4>
+        <p>Las luces, el motor de arranque, la radio y los sensores del automóvil operan en paralelo sobre el bus de 12 V.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Circuito en Paralelo — <span>Física Eléctrica</span> · Todos los valores son aproximados con fines educativos</p>
+</footer>
+
+<script>
+// Calculator
+const V = 12;
+
+function fmt(n, unit) {
+  if (n >= 1000) return (n/1000).toFixed(2) + ' k' + unit;
+  if (n < 0.01)  return (n*1000).toFixed(2) + ' m' + unit;
+  return n.toFixed(2) + ' ' + unit;
+}
+
+function calculate() {
+  const r1 = +document.getElementById('r1').value;
+  const r2 = +document.getElementById('r2').value;
+  const r3 = +document.getElementById('r3').value;
+
+  document.getElementById('v1').textContent = r1 + ' Ω';
+  document.getElementById('v2').textContent = r2 + ' Ω';
+  document.getElementById('v3').textContent = r3 + ' Ω';
+
+  const gt = 1/r1 + 1/r2 + 1/r3;
+  const req = 1 / gt;
+  const itot = V / req;
+  const i1 = V / r1;
+  const i2 = V / r2;
+  const i3 = V / r3;
+  const ptot = V * itot;
+
+  document.getElementById('req').textContent  = fmt(req, 'Ω');
+  document.getElementById('itot').textContent = fmt(itot, 'A');
+  document.getElementById('i1').textContent   = fmt(i1, 'A');
+  document.getElementById('i2').textContent   = fmt(i2, 'A');
+  document.getElementById('i3').textContent   = fmt(i3, 'A');
+  document.getElementById('ptot').textContent = fmt(ptot, 'W');
+  document.getElementById('gtot').textContent = fmt(gt, 'S');
+}
+
+calculate();
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+
+// Nav pill active state
+const pills = document.querySelectorAll('.pill');
+const sections = ['definicion','caracteristicas','leyes','comparacion','calculadora','aplicaciones'];
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 200) current = id;
+  });
+  pills.forEach(p => {
+    p.classList.toggle('active', p.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
