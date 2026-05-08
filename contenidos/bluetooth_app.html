@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Android Bluetooth + Arduino</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.75;
+    font-size: 16px;
+  }
+
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0e4d92 100%);
+    padding: 4rem 0 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, 0.12);
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(99, 179, 237, 0.1);
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7dd3fc;
+    background: rgba(125, 211, 252, 0.15);
+    border: 1px solid rgba(125, 211, 252, 0.3);
+    border-radius: 20px;
+    padding: 5px 16px;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    max-width: 560px;
+    margin: 0 auto 0.75rem;
+  }
+
+  .subtitle {
+    color: #94a3b8;
+    font-size: 1rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .toc {
+    margin: 2.5rem 0;
+    padding: 1.5rem 2rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    background: #f8fafc;
+    border-left: 4px solid #3b82f6;
+  }
+
+  .toc-title {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #3b82f6;
+    margin-bottom: 0.85rem;
+  }
+
+  .toc ol {
+    padding-left: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 2rem;
+  }
+
+  .toc a {
+    color: #374151;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .toc a:hover { color: #3b82f6; }
+
+  section {
+    padding: 3rem 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .pill-blue   { background: #dbeafe; color: #1d4ed8; }
+  .pill-violet { background: #ede9fe; color: #6d28d9; }
+  .pill-teal   { background: #ccfbf1; color: #0f766e; }
+  .pill-amber  { background: #fef3c7; color: #b45309; }
+  .pill-rose   { background: #ffe4e6; color: #be123c; }
+  .pill-green  { background: #dcfce7; color: #15803d; }
+  .pill-indigo { background: #e0e7ff; color: #4338ca; }
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  p { color: #374151; margin-bottom: 1rem; }
+
+  ul, ol { padding-left: 1.5rem; color: #374151; margin-bottom: 1rem; }
+  li { margin-bottom: 0.3rem; }
+
+  code {
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 13px;
+    background: #f1f5f9;
+    color: #be185d;
+    padding: 2px 7px;
+    border-radius: 5px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 12px;
+    padding: 1.35rem 1.5rem;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+    border: 1px solid #1e293b;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  .kw  { color: #c084fc; }
+  .fn  { color: #60a5fa; }
+  .str { color: #86efac; }
+  .cm  { color: #475569; font-style: italic; }
+  .nb  { color: #fcd34d; }
+  .op  { color: #67e8f9; }
+
+  .callout {
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 15px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .callout-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .callout.info    { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+  .callout.warning { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+  .callout.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #14532d; }
+  .callout.danger  { background: #fff1f2; border: 1px solid #fecdd3; color: #9f1239; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 1.25rem 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+  }
+
+  th {
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 10px 16px;
+    background: #1e293b;
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #374151;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  .chip {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .chip.ok  { background: #dcfce7; color: #15803d; }
+  .chip.err { background: #fee2e2; color: #b91c1c; }
+  .chip.neutral { background: #f1f5f9; color: #475569; }
+
+  .diagram {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    color: #475569;
+    background: #f8fafc;
+    white-space: pre;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+    line-height: 1.7;
+    border-left: 4px solid #a5b4fc;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 1.25rem 0;
+  }
+
+  .step-card {
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .step-card .step-icon { font-size: 22px; margin-bottom: 8px; }
+  .step-card .step-label { font-size: 13px; font-weight: 600; }
+  .step-card .step-desc  { font-size: 12px; margin-top: 4px; opacity: 0.75; }
+
+  .sc-blue   { background: #dbeafe; color: #1d4ed8; }
+  .sc-violet { background: #ede9fe; color: #5b21b6; }
+  .sc-green  { background: #dcfce7; color: #15803d; }
+  .sc-rose   { background: #ffe4e6; color: #be123c; }
+
+  .state-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 1.25rem 0;
+  }
+
+  .state-card {
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    border: 1.5px solid transparent;
+  }
+
+  .state-card .state-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .state-card .state-desc { font-size: 13px; opacity: 0.8; }
+
+  .s-gray   { background: #f8fafc; border-color: #e2e8f0; color: #374151; }
+  .s-blue   { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+  .s-green  { background: #f0fdf4; border-color: #bbf7d0; color: #14532d; }
+  .s-red    { background: #fff1f2; border-color: #fecdd3; color: #9f1239; }
+
+  footer {
+    text-align: center;
+    padding: 2.5rem 0;
+    font-size: 13px;
+    color: #94a3b8;
+    border-top: 1px solid #f1f5f9;
+    background: #f8fafc;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="badge">Android Studio · Kotlin · Arduino</div>
+    <h1>Cómo crear una app para controlar un LED con Bluetooth</h1>
+    <p class="subtitle">Guía paso a paso para conectar un dispositivo Android con un módulo HC-06 y controlar componentes en Arduino.</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <nav class="toc">
+    <div class="toc-title">Contenido</div>
+    <ol>
+      <li><a href="#bluetooth-adapter">BluetoothAdapter</a></li>
+      <li><a href="#socket">BluetoothSocket</a></li>
+      <li><a href="#sealed">Sealed class de estados</a></li>
+      <li><a href="#conectar">Método connect</a></li>
+      <li><a href="#enviar">Envío de datos</a></li>
+      <li><a href="#permisos">Permisos en Android 12+</a></li>
+      <li><a href="#arduino">Configuración Arduino</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="bluetooth-adapter">
+    <div class="section-header">
+      <div class="section-pill pill-blue">01</div>
+      <h2>BluetoothAdapter</h2>
+    </div>
+    <p>El punto de entrada para todo lo relacionado con Bluetooth en Android es la clase <code>BluetoothAdapter</code>. A través de ella podemos verificar si el dispositivo tiene Bluetooth, activarlo, obtener los dispositivos vinculados y establecer nuevas conexiones.</p>
+
+    <div class="steps">
+      <div class="step-card sc-blue">
+        <div class="step-icon">📡</div>
+        <div class="step-label">Verificar</div>
+        <div class="step-desc">Si el teléfono tiene Bluetooth</div>
+      </div>
+      <div class="step-card sc-violet">
+        <div class="step-icon">🔗</div>
+        <div class="step-label">Vincular</div>
+        <div class="step-desc">Obtener dispositivos emparejados</div>
+      </div>
+      <div class="step-card sc-green">
+        <div class="step-icon">🔍</div>
+        <div class="step-label">Buscar</div>
+        <div class="step-desc">Descubrir nuevos dispositivos</div>
+      </div>
+      <div class="step-card sc-rose">
+        <div class="step-icon">⚡</div>
+        <div class="step-label">Conectar</div>
+        <div class="step-desc">Establecer la comunicación</div>
+      </div>
+    </div>
+
+    <pre><code><span class="kw">val</span> bluetoothAdapter <span class="op">=</span> BluetoothAdapter.<span class="fn">getDefaultAdapter</span>()</code></pre>
+    <p>Con el adaptador obtenido, podemos recuperar los dispositivos ya emparejados mediante <code>bondedDevices</code>, que devuelve un conjunto de objetos <code>BluetoothDevice</code>, cada uno con información como nombre y dirección MAC.</p>
+    <pre><code><span class="nb">@SuppressLint</span>(<span class="str">"MissingPermission"</span>)
+<span class="kw">fun</span> <span class="fn">getBondedDevices</span>(): Set&lt;BluetoothDevice&gt;? {
+    <span class="kw">return</span> bluetoothAdapter?.bondedDevices
+}</code></pre>
+  </section>
+
+  <!-- 2 -->
+  <section id="socket">
+    <div class="section-header">
+      <div class="section-pill pill-violet">02</div>
+      <h2>BluetoothSocket</h2>
+    </div>
+    <p>Para establecer comunicación usamos un <code>BluetoothSocket</code>, que funciona como un canal bidireccional de datos. Primero definimos el UUID del servicio SPP (Serial Port Profile), un identificador estándar para conexiones serie:</p>
+    <pre><code><span class="kw">val</span> uuid <span class="op">=</span> UUID.<span class="fn">fromString</span>(<span class="str">"00001101-0000-1000-8000-00805F9B34FB"</span>)</code></pre>
+    <p>Luego creamos el canal de comunicación hacia ese servicio:</p>
+    <pre><code>socket <span class="op">=</span> device.<span class="fn">createRfcommSocketToServiceRecord</span>(uuid)</code></pre>
+
+    <p>Con el socket activo podemos:</p>
+    <ul>
+      <li>Conectarnos al dispositivo remoto</li>
+      <li>Enviar datos con <code>outputStream.write()</code></li>
+      <li>Recibir datos con <code>inputStream.read()</code></li>
+      <li>Cerrar la conexión con <code>close()</code></li>
+    </ul>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <span>La operación <code>socket.connect()</code> puede tardar varios segundos. Si se llama directamente en el hilo principal, la interfaz se congelará. Por eso la función de conexión debe marcarse como <code>suspend</code> y ejecutarse en <code>Dispatchers.IO</code>.</span>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="sealed">
+    <div class="section-header">
+      <div class="section-pill pill-teal">03</div>
+      <h2>Sealed class de estados</h2>
+    </div>
+    <p>Para representar los distintos resultados posibles de la conexión usamos una <em>sealed class</em>. Este tipo de clase permite definir un conjunto cerrado de subtipos, lo que facilita manejar cada caso con <code>when</code> de forma exhaustiva y segura.</p>
+
+    <div class="state-grid">
+      <div class="state-card s-gray">
+        <div class="state-name">Idle</div>
+        <div class="state-desc">Sin actividad. Estado inicial de la app.</div>
+      </div>
+      <div class="state-card s-blue">
+        <div class="state-name">Loading</div>
+        <div class="state-desc">Intentando conectar con el dispositivo.</div>
+      </div>
+      <div class="state-card s-green">
+        <div class="state-name">Success</div>
+        <div class="state-desc">Conexión establecida. Devuelve el <code>BluetoothDevice</code>.</div>
+      </div>
+      <div class="state-card s-red">
+        <div class="state-name">Error</div>
+        <div class="state-desc">Falló la conexión. Devuelve el mensaje de error.</div>
+      </div>
+    </div>
+
+    <pre><code><span class="kw">sealed class</span> <span class="nb">BluetoothState</span>&lt;<span class="kw">out</span> T&gt; {
+    <span class="kw">object</span> <span class="nb">Idle</span>    : BluetoothState&lt;Nothing&gt;()
+    <span class="kw">object</span> <span class="nb">Loading</span> : BluetoothState&lt;Nothing&gt;()
+    <span class="kw">data class</span> <span class="nb">Success</span>&lt;T&gt;(<span class="kw">val</span> data: T)       : BluetoothState&lt;T&gt;()
+    <span class="kw">data class</span> <span class="nb">Error</span>(<span class="kw">val</span> message: String)    : BluetoothState&lt;Nothing&gt;()
+}</code></pre>
+  </section>
+
+  <!-- 4 -->
+  <section id="conectar">
+    <div class="section-header">
+      <div class="section-pill pill-amber">04</div>
+      <h2>Método connect</h2>
+    </div>
+    <p>La función de conexión es <code>suspend</code> para no bloquear el hilo principal. Mueve la operación bloqueante al dispatcher de IO con <code>withContext(Dispatchers.IO)</code>. Al terminar, la ejecución regresa automáticamente al hilo original.</p>
+    <p>Usamos <code>withTimeout</code> para establecer un límite máximo de 10 segundos:</p>
+
+    <div class="diagram">0s                    10s
+│                      │
+├──── esperando ───────┤ ← sin respuesta → lanza TimeoutCancellationException
+        │
+        └── conecta antes de 10s → continúa normal</div>
+
+    <pre><code><span class="nb">@SuppressLint</span>(<span class="str">"MissingPermission"</span>)
+<span class="kw">suspend fun</span> <span class="fn">connect</span>(
+    deviceName: String,
+    bluetooth: (BluetoothState&lt;BluetoothDevice&gt;) -&gt; Unit
+) {
+    bluetooth(BluetoothState.Loading)
+    <span class="kw">try</span> {
+        <span class="kw">val</span> bluetoothDevice <span class="op">=</span>
+            bluetoothAdapter?.bondedDevices?.<span class="fn">firstOrNull</span> {
+                it.name <span class="op">==</span> deviceName
+            } ?: <span class="kw">run</span> {
+                bluetooth(BluetoothState.<span class="fn">Error</span>(<span class="str">"Dispositivo no encontrado"</span>))
+                <span class="kw">return</span>
+            }
+
+        <span class="kw">val</span> uuid <span class="op">=</span> UUID.<span class="fn">fromString</span>(<span class="str">"00001101-0000-1000-8000-00805F9B34FB"</span>)
+        socket?.<span class="fn">close</span>()
+        socket <span class="op">=</span> bluetoothDevice.<span class="fn">createRfcommSocketToServiceRecord</span>(uuid)
+
+        <span class="fn">withContext</span>(Dispatchers.IO) {
+            <span class="fn">withTimeout</span>(10_000L) { socket?.<span class="fn">connect</span>() }
+        }
+
+        bluetooth(BluetoothState.<span class="fn">Success</span>(bluetoothDevice))
+
+    } <span class="kw">catch</span> (e: TimeoutCancellationException) {
+        socket <span class="op">=</span> <span class="kw">null</span>
+        bluetooth(BluetoothState.<span class="fn">Error</span>(<span class="str">"Tiempo agotado. Verifica que el dispositivo esté encendido y cerca"</span>))
+    } <span class="kw">catch</span> (e: IOException) {
+        socket <span class="op">=</span> <span class="kw">null</span>
+        <span class="kw">val</span> mensaje <span class="op">=</span> <span class="kw">when</span> {
+            e.message?.<span class="fn">contains</span>(<span class="str">"Connection refused"</span>) <span class="op">==</span> <span class="kw">true</span> -&gt; <span class="str">"Dispositivo rechazó la conexión"</span>
+            e.message?.<span class="fn">contains</span>(<span class="str">"Host is down"</span>)        <span class="op">==</span> <span class="kw">true</span> -&gt; <span class="str">"Dispositivo apagado o fuera de rango"</span>
+            e.message?.<span class="fn">contains</span>(<span class="str">"read failed"</span>)         <span class="op">==</span> <span class="kw">true</span> -&gt; <span class="str">"El dispositivo no responde"</span>
+            <span class="kw">else</span> -&gt; <span class="str">"Error de conexión: ${e.message}"</span>
+        }
+        bluetooth(BluetoothState.<span class="fn">Error</span>(mensaje))
+    } <span class="kw">catch</span> (e: SecurityException) {
+        bluetooth(BluetoothState.<span class="fn">Error</span>(<span class="str">"Permiso Bluetooth denegado"</span>))
+    }
+}</code></pre>
+
+    <h3>Errores cubiertos</h3>
+    <table>
+      <thead>
+        <tr><th>Situación</th><th>Excepción capturada</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Dispositivo no vinculado</td><td>Manejado con <code>run { return }</code></td><td><span class="chip err">Error</span></td></tr>
+        <tr><td>Sin respuesta en 10 segundos</td><td><code>TimeoutCancellationException</code></td><td><span class="chip err">Error</span></td></tr>
+        <tr><td>Fuera de rango o apagado</td><td><code>IOException</code></td><td><span class="chip err">Error</span></td></tr>
+        <tr><td>Permisos no concedidos</td><td><code>SecurityException</code></td><td><span class="chip err">Error</span></td></tr>
+        <tr><td>Conexión exitosa</td><td>—</td><td><span class="chip ok">Success</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5 -->
+  <section id="enviar">
+    <div class="section-header">
+      <div class="section-pill pill-rose">05</div>
+      <h2>Envío de datos</h2>
+    </div>
+    <p>El módulo HC-06 trabaja a nivel de bytes. Para enviar datos usamos <code>outputStream.write()</code>, que recibe un <code>ByteArray</code>. Es importante concatenar un salto de línea <code>\n</code> al final de cada mensaje para que Arduino sepa dónde termina, y llamar a <code>flush()</code> para forzar el envío inmediato sin esperar a que se llene el buffer.</p>
+
+    <div class="diagram">Kotlin              Buffer            HC-06
+  │                    │                  │
+  ├── write("1\n") ──► │ datos en memoria │
+  ├── flush() ───────► │ fuerza envío ───►│
+  │                    │    inmediato     │</div>
+
+    <pre><code><span class="kw">fun</span> <span class="fn">sendData</span>(data: String) {
+    <span class="kw">try</span> {
+        socket?.outputStream?.<span class="fn">write</span>((data <span class="op">+</span> <span class="str">"\n"</span>).<span class="fn">toByteArray</span>())
+        socket?.outputStream?.<span class="fn">flush</span>()
+    } <span class="kw">catch</span> (e: Exception) {
+        Log.<span class="fn">e</span>(<span class="str">"Bluetooth"</span>, <span class="str">"Error al enviar datos"</span>, e)
+        socket <span class="op">=</span> <span class="kw">null</span>
+    }
+}</code></pre>
+
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      <span>Sin <code>flush()</code>, los datos quedan acumulados en memoria y pueden no llegar al módulo HC-06, especialmente con mensajes cortos como <code>"1"</code> o <code>"0"</code>.</span>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="permisos">
+    <div class="section-header">
+      <div class="section-pill pill-green">06</div>
+      <h2>Permisos en Android 12 y superior</h2>
+    </div>
+    <p>A partir de Android 12 (API 31), Google rediseñó el sistema de permisos de Bluetooth. Las apps deben solicitarlos en tiempo de ejecución, no solo declararlos en el manifiesto.</p>
+
+    <table>
+      <thead>
+        <tr><th>Android 11 o menor</th><th>Android 12 o mayor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>BLUETOOTH</code></td><td><code>BLUETOOTH_CONNECT</code></td></tr>
+        <tr><td><code>BLUETOOTH_ADMIN</code></td><td><code>BLUETOOTH_SCAN</code></td></tr>
+        <tr><td><code>ACCESS_FINE_LOCATION</code></td><td><code>BLUETOOTH_ADVERTISE</code></td></tr>
+      </tbody>
+    </table>
+
+    <pre><code><span class="kw">if</span> (Build.VERSION.SDK_INT <span class="op">>=</span> Build.VERSION_CODES.S) {
+    <span class="kw">if</span> (ActivityCompat.<span class="fn">checkSelfPermission</span>(
+            <span class="kw">this</span>, Manifest.permission.BLUETOOTH_CONNECT
+        ) <span class="op">!=</span> PackageManager.PERMISSION_GRANTED
+    ) {
+        ActivityCompat.<span class="fn">requestPermissions</span>(
+            <span class="kw">this</span>,
+            <span class="fn">arrayOf</span>(
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_SCAN
+            ),
+            <span class="nb">1</span>
+        )
+    }
+}</code></pre>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <span><code>checkSelfPermission</code> devuelve <code>0</code> si el permiso está concedido (<code>PERMISSION_GRANTED</code>) y <code>-1</code> si no lo está (<code>PERMISSION_DENIED</code>). La condición <code>!= PERMISSION_GRANTED</code> solo entra al bloque cuando el usuario aún no ha otorgado el permiso.</span>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="arduino">
+    <div class="section-header">
+      <div class="section-pill pill-indigo">07</div>
+      <h2>Configuración en Arduino</h2>
+    </div>
+    <p>En el lado del hardware usamos la librería <code>SoftwareSerial.h</code> para crear una comunicación serial en los pines 2 y 3, liberando los pines 0 y 1 para el Monitor Serie del IDE de Arduino. Esto nos permite ver los datos recibidos desde la app mientras el circuito funciona.</p>
+
+    <pre><code><span class="op">#include</span> &lt;SoftwareSerial.h&gt;
+<span class="cm">//                  RX  TX</span>
+SoftwareSerial <span class="fn">bt</span>(<span class="nb">2</span>, <span class="nb">3</span>);
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+    Serial.<span class="fn">begin</span>(<span class="nb">9600</span>);  <span class="cm">// Monitor Serie (USB)</span>
+    bt.<span class="fn">begin</span>(<span class="nb">9600</span>);      <span class="cm">// Módulo HC-06</span>
+    <span class="fn">pinMode</span>(<span class="nb">7</span>, OUTPUT);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+    <span class="kw">if</span> (bt.<span class="fn">available</span>()) {
+        <span class="kw">char</span> dato <span class="op">=</span> bt.<span class="fn">read</span>();
+        Serial.<span class="fn">println</span>(dato);
+
+        <span class="kw">if</span> (dato <span class="op">==</span> <span class="str">'1'</span>) <span class="fn">digitalWrite</span>(<span class="nb">7</span>, HIGH);
+        <span class="kw">if</span> (dato <span class="op">==</span> <span class="str">'0'</span>) <span class="fn">digitalWrite</span>(<span class="nb">7</span>, LOW);
+    }
+}</code></pre>
+
+    <h3>Conexión del módulo HC-06</h3>
+    <p>El pin RX del HC-06 opera a 3.3V. Para protegerlo, usamos un divisor de voltaje entre el pin TX del Arduino (5V) y el pin RX del módulo:</p>
+
+    <div class="diagram">Arduino TX ── 1kΩ ──┬── HC-06 RX
+                       │
+                      2kΩ
+                       │
+                      GND</div>
+
+    <div class="callout success">
+      <span class="callout-icon">✅</span>
+      <span>La conexión debe ser cruzada: TX del Arduino con RX del HC-06, y RX del Arduino con TX del HC-06. Para ver los datos recibidos, abre el Monitor Serie con <strong>Ctrl + Shift + M</strong> y selecciona <strong>9600 baud</strong>.</span>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    Guía de referencia · Android Studio + Kotlin + Arduino HC-06
+  </div>
+</footer>
+
+</body>
+</html>
